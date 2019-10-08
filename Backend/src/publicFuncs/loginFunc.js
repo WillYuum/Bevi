@@ -1,5 +1,5 @@
 import { USERNAME, PASSWORD } from "../credentials.js";
-import { startBrowser, closeBrowser } from "./broswerFunc.js";
+import { startBrowser, closeBrowser } from "./broswerFunc.js.js";
 
 //CSS SELECTORS FOR{Username imput, Password Input, Submit button}
 const USERNAME_SELECTOR = "#username";

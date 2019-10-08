@@ -1,4 +1,4 @@
-import loginToLInkined from "../public/loginFunc.js";
+import loginToLInkined from "../publicFuncs/loginFunc.js.js";
 
 /**
  * @async -run the scraping functionality
