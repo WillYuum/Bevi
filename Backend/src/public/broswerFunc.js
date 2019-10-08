@@ -17,4 +17,4 @@ async function closeBrowser(browser) {
   return browser.close();
 }
 
-export default {startBrowser, closeBrowser}
+export {startBrowser, closeBrowser}
