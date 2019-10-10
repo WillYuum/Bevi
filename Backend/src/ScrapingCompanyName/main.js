@@ -1,76 +1,85 @@
-import loginToLInkined from "../publicFuncs/loginFunc.js";
+import loginToLInkinedin from "../publicFuncs/loginFunc.js";
 const url =
   "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL";
 
-(async () => {
-  const root = await loginToLInkined("https://www.linkedin.com/login");
-  console.log(ScrapePages(root, url));
-})();
-
+let max_page = 0;
 /**
- * @function ScrapePages -helps to scrape multiple company names in many pages
- * @param {url} url takes in the default url provided and loops on the pages of the url
+ * @function Main The Main will run all all the fucntions to scrape all the companyNames
  */
-async function ScrapePages(root, url) {
+const Main = async () => {
   try {
+    const root = await loginToLInkinedin("https://www.linkedin.com/login");
     await root.goto(url);
-    const Collected_Company_Names = await root.evaluate(
-      async ({ root, url }) => {
-        // const data = [];
-        //getting the last number of page from the url
-        const getMaxPage = document.querySelector(
-          "li.artdeco-pagination__indicator:nth-last-Child(1)"
-        );
-        //Scraping company names page by page
-        const MaxPage = getMaxPage.innerText;
-        console.log(MaxPage);
-        for (let i = 1; i < MaxPage; i++) {
-          const newurl = root.goto(`${url}&page=${i}`);
-          console.log(newurl)
-          // let receivedNames = await scrapeNames(root, newurl);
-          // data.push(receivedNames);
-        }
-        // return data;
-      },
-    );
-
-    return Collected_Company_Names;
+    let arr = [];
+    let startingPage = 1;
+    // max_page = await root.evaluate(() => {
+    //   const page = document.querySelector(
+    //     "li.artdeco-pagination__indicator:nth-last-Child(1)"
+    //   );
+    //   return parseInt(page.innerText);
+    // });
+    max_page = await getMaxPage(root);
+    console.log("max page", max_page);
+    const data = await ScrapeCompanyNames(root, url, startingPage, arr);
+    console.log("Here willy", data);
   } catch (err) {
-    console.log(err);
-    throw new Error("scraping the page failed");
-  }
-}
-
-/**
- * @function scrapeNames --scrapes the pages with the specific url provided
- * @param {url} url the url is the page that will get scraped
- */
-const scrapeNames = async (root, url) => {
-  let companyNames = [];
-  try {
-    const getCompanyNames = await root.evaluate(() => {
-      let names = document.querySelectorAll("h3.search-result__title");
-      names.forEach(name => {
-        companyNames.push(name.innerText);
-      });
-    });
-    await getCompanyNames();
-  } catch (err) {
-    console.log(err);
-    throw new Error(`scraping page with link = ${url}`);
+    console.log(`Main scraping failed with = ${err}`);
   }
 };
 
+/**
+ * @function getMaxPage - gets the maximum number of the page
+ * @param {class} root  - root will provide you with browser and page functions
+ * @returns {int} returns the maximum number of the page
+ */
+const getMaxPage = async root => {
+  return await root.evaluate(() => {
+    const page = document.querySelector(
+      "li.artdeco-pagination__indicator:nth-last-Child(1)"
+    );
+    return parseInt(page.innerText);
+  });
+};
 
-const scrapeCompanyNames = async (root, url) => {
-  try {
-    return await root.evaluate(() => {
-      const names = document.querySelectorAll("h3.search-result__title");
-      return names.map(name => {
-        return name.innerText;
-      })
-    })
-  } catch (err) {
-    console.error(`scrapeCompanyNames ${err} at uri ${url}`)
+const getPageContent = async root => {
+  return await root.evaluate(() => {
+    const page = [...document.querySelectorAll(
+      "h3.search-result__title"
+    )];
+    return page;
+  })
+}
+
+/**
+ * @function ScrapeCompanyNames this function is recusrivly scrape all the pages depending on the MaxPage
+ * @param {class} root - root will provide you with browser and page functions
+ * @param {object{url, int, array}} PageInfo - data information that has to be provided to scrape company names
+ */
+async function ScrapeCompanyNames(root, url, currentPage, list = []) {
+  console.log("we are in he url ", url);
+  const newUrl = `${url}&page=${currentPage}`;
+  console.log("The new url is", newUrl);
+  await root.goto(newUrl);
+  console.log("we are in page", await currentPage);
+  const names = await getPageContent(root);
+ 
+  names.forEach(text => {
+    console.log(text.innerText);
+  })
+
+  if (names) {
+    const newList = names.map(name => {
+      return name.innerText;
+    });
+    list = [...list, ...newList];
+  }
+
+  if (currentPage < max_page) {
+    ++currentPage;
+    return await ScrapeCompanyNames(root, url, currentPage, list);
+  } else {
+    return list;
   }
 }
+
+Main();

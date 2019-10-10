@@ -5,7 +5,7 @@ const puppeteer = require("puppeteer");
  * @returns {object} -return "browser" and "page" for more control on them on the next function
  */
 async function startBrowser() {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 100 });
+  const browser = await puppeteer.launch({ headless: false, slowMo: 0 });
   const page = await browser.newPage();
   return { browser, page };
 }
