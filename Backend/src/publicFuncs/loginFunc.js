@@ -17,6 +17,7 @@ async function loginToLInkinedin(url) {
     page.setViewport({ width: 1366, height: 768 });
     await page.goto(url);
     console.log("we are in", url);
+    page.waitForNavigation();
     await page.click(USERNAME_SELECTOR);
     await page.keyboard.type(USERNAME);
     await page.click(PASSWORD_SELECTOR);
