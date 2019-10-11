@@ -1,4 +1,6 @@
 import loginToLInkinedin from "../publicFuncs/loginFunc.js";
+const fs = require("fs");
+
 const url =
   "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL";
 
@@ -11,10 +13,16 @@ let maxpage = 0;
 const Main = async () => {
   try {
     const page = await loginToLInkinedin("https://www.linkedin.com/login");
-    await paeg.goto(url);
+    await page.goto(url);
     maxpage = await getMaxPage(page);
     const x = await recursiveScrappe(page, url, 1, maxpage, []);
     console.log(x);
+    fs.writeFile("CompanyNames.json", JSON.stringify(x), err => {
+      if (err) {
+        throw err;
+      }
+      console.log("file Saved");
+    });
   } catch (err) {
     console.log(`Fetching Main failed with = ${err}`);
   }
@@ -66,15 +74,17 @@ const recursiveScrappe = async (page, url, currentPage, max_page, list) => {
     window.scrollBy(0, window.innerHeight);
   });
   await page.waitFor(5000);
-  const names = await getNamesFromPage(page);
+  const newList = await getNamesFromPage(page);
 
-
+  console.log("Recieved comapny Names", names);
   if (names) {
-    list = [...list, ...names];
-
-    if (currentPage < max_page)
+    list = [...list, ...newList];
+    if (currentPage <= max_page) {
       return recursiveScrappe(page, newUrl, ++currentPage, max_page, list);
-    else console.log("The list of company names", list);
+    } else {
+      console.log("The list of company names", list);
+      return list;
+    }
   } else {
     console.log("There is something wrong with company names");
   }
