@@ -17,7 +17,7 @@ const Main = async () => {
     maxpage = await getMaxPage(page);
     const x = await recursiveScrappe(page, url, 1, maxpage, []);
     console.log(x);
-    fs.writeFile("CompanyNames.json", JSON.stringify(x), err => {
+    fs.writeFile("CompanyUrls.json", JSON.stringify(x), err => {
       if (err) {
         throw err;
       }
@@ -47,13 +47,15 @@ const getMaxPage = async page => {
  * @function getNamesFromPage - scrapes the names from the current page when called
  * @param {class} page - page will provide you with browser and page functions
  */
-const getNamesFromPage = async page => {
+const getUrlFromPage = async page => {
   return await page.evaluate(() => {
-    return [...document.querySelectorAll("h3.search-result__title")].map(
-      elem => {
-        return elem.innerText;
-      }
-    );
+    return [
+      ...document.querySelectorAll(
+        ".search-result__info a.search-result__result-link"
+      )
+    ].map(elem => {
+      return elem.getAttribute("href");
+    });
   });
 };
 
@@ -74,12 +76,12 @@ const recursiveScrappe = async (page, url, currentPage, max_page, list) => {
     window.scrollBy(0, window.innerHeight);
   });
   await page.waitFor(5000);
-  const newList = await getNamesFromPage(page);
+  const newList = await getUrlFromPage(page);
 
-  console.log("Recieved comapny Names", names);
-  if (names) {
+  console.log("Recieved comapny main Urls", newList);
+  if (newList) {
     list = [...list, ...newList];
-    if (currentPage <= max_page) {
+    if (currentPage < max_page) {
       return recursiveScrappe(page, newUrl, ++currentPage, max_page, list);
     } else {
       console.log("The list of company names", list);

@@ -9,7 +9,8 @@
     ]
   },
   "scripts": {
-    "start": "nodemon --exec babel-node ./src/ScrapingCompanyName/main.js"
+    "scrape-url": "nodemon --exec babel-node ./src/ScrapingCompanyName/main.js",
+    "scrape-site": "nodemon --exec babel-node ./src/ScrapeSites/ScrapeSite.js"
   },
   "author": "",
   "license": "ISC",
