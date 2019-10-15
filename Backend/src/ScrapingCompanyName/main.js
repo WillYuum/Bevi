@@ -1,4 +1,4 @@
-import loginToLInkinedin from "../publicFuncs/loginFunc.js";
+import loginToLinkinedin from "../publicFuncs/loginFunc.js";
 const fs = require("fs");
 
 const url =
@@ -12,17 +12,11 @@ let maxpage = 0;
  */
 const Main = async () => {
   try {
-    const page = await loginToLInkinedin("https://www.linkedin.com/login");
+    const page = await loginToLinkinedin("https://www.linkedin.com/login");
     await page.goto(url);
     maxpage = await getMaxPage(page);
-    const x = await recursiveScrappe(page, url, 1, maxpage, []);
-    console.log(x);
-    fs.writeFile("CompanyUrls.json", JSON.stringify(x), err => {
-      if (err) {
-        throw err;
-      }
-      console.log("file Saved");
-    });
+    const AllCompanyUrl = await recursiveScrappe(page, url, 1, maxpage, []);
+    return writeToJson(AllCompanyUrl);
   } catch (err) {
     console.log(`Fetching Main failed with = ${err}`);
   }
@@ -90,6 +84,14 @@ const recursiveScrappe = async (page, url, currentPage, max_page, list) => {
   } else {
     console.log("There is something wrong with company names");
   }
+};
+
+/**
+ * @function writeToJson this function will save the data into a json file
+ * @param {array} data will take the array of data and turn it into json format
+ */
+const writeToJson = data => {
+  fs.writeFileSync("CompanyUrls.json", JSON.stringify(data));
 };
 
 Main();
