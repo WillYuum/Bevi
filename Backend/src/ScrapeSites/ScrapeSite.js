@@ -34,7 +34,6 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
   return {
-    HeaderContent: headerContent,
     MainData: headerContent,
     AboutCompany: aboutdata
   };
