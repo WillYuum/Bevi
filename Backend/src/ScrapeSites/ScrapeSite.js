@@ -13,11 +13,11 @@ import {
 const Main = async () => {
   console.log(aboutSelector.CompanyWebLink);
   const CompanyUrls = fs.readFileSync("CompanyUrls.json");
-  const x = await JSON.parse(CompanyUrls);
+  const urls = await JSON.parse(CompanyUrls);
 
   const page = await loginToLinkinedin("https://www.linkedin.com/login");
-  for (let i = 0; i < 2; i++) {
-    console.log(await ScrapeCompanySite(page, x[i]));
+  for (let i = 0; i < urls.length; i++) {
+    console.log(await ScrapeCompanySite(page, urls[i]));
   }
 };
 
@@ -25,13 +25,46 @@ const Main = async () => {
  *@function ScrapeCompanySite Scraping the ["Header"] ["About"] in linkedIn companySite
  * @param {class} page  - page will provide you with browser and page functions
  * @param {string} companyUrl - will provide with company site url in linkedIn
+ * @returns {object}
  */
 const ScrapeCompanySite = async (page, companyUrl) => {
   const url = `https://www.linkedin.com${companyUrl}`;
   await page.goto(url);
   console.log("we are in", url);
+  const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
-  return aboutdata;
+  return {
+    HeaderContent: headerContent,
+    MainData: headerContent,
+    AboutCompany: aboutdata
+  };
+};
+
+/**
+ * @function ScrapeHeader Srcape the header part of company site
+ * @param {class} page - page will provide you with browser and page functions
+ * @returns {object} - return {"CompanyLogo", "CompanyName", "CompanyType", "CompanySmallInfo", "CompanyCity"}
+ */
+const ScrapeHeader = async page => {
+  console.log("scraping header");
+  console.log(headerSelectors.CompanyName);
+  return await page.evaluate(headerSelectors => {
+    let header = {
+      CompanyName: "",
+      CompanyType: "",
+      CompanySmallInfo: "",
+      CompanyCity: ""
+    };
+    for (let key in header) {
+      const htmlContent = document.querySelector(`${headerSelectors[key]}`);
+      if (htmlContent === null) {
+        header[key] = "";
+      } else {
+        header[key] = htmlContent.innerText;
+      }
+    }
+    return header;
+  }, headerSelectors);
 };
 
 /**
@@ -50,7 +83,7 @@ const ScrapeAboutUs = async (page, url) => {
     ).innerHTML;
     const weblink = document.querySelector(`${aboutSelector.CompanyWebLink}`)
       .innerText;
-    return { description: description, CompanyWebLink: weblink };
+    return { CompanyDescription: description, CompanyWebLink: weblink };
   }, aboutSelector);
 };
 
