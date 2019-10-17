@@ -1,7 +1,7 @@
-import db from "../app.js";
+import db from "../db.js";
 
 //This function will initiate the CompanyData controller
-const initCompanyData = () => {
+const initCompanyController = async () => {
   /**
    * @function getCompanies - controller to get all company data
    * @returns {object} - All company data
@@ -27,8 +27,9 @@ const initCompanyData = () => {
   };
 
   const controller = {
-    getCompanies
+    getCompanies,
+    createCompnay
   };
   return controller;
 };
-export default initCompanyData;
+export default initCompanyController;

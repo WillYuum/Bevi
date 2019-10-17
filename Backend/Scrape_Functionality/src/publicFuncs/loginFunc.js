@@ -1,10 +1,10 @@
-import { USERNAME, PASSWORD } from "../credentials.js";
 import { startBrowser, closeBrowser } from "./broswerFunc.js";
+require("dotenv").config();
 
 //CSS SELECTORS FOR{Username imput, Password Input, Submit button}
 const USERNAME_SELECTOR = "#username";
 const PASSWORD_SELECTOR = "#password";
-const SUBMIT_BTN = ".btn__primary--large"; 
+const SUBMIT_BTN = ".btn__primary--large";
 
 /**
  * @function loginToLInkined -this function will have steps to enter the login page and add try to login
@@ -19,9 +19,9 @@ async function loginToLInkinedin(url) {
     console.log("we are in", url);
     page.waitForNavigation();
     await page.click(USERNAME_SELECTOR);
-    await page.keyboard.type(USERNAME);
+    await page.keyboard.type(`${process.env.USER_NAME}`);
     await page.click(PASSWORD_SELECTOR);
-    await page.keyboard.type(PASSWORD);
+    await page.keyboard.type(`${process.env.PASSWORD}`);
     await page.click(SUBMIT_BTN);
     console.log("click on Submit button");
     console.log("loggedin");

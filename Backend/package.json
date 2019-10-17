@@ -2,13 +2,14 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
   },
   "scripts": {
+    "start": "nodemon --exec babel-node index.js",
     "scrape-url": "nodemon --exec babel-node ./src/ScrapingCompanyName/main.js",
     "scrape-site": "nodemon --exec babel-node ./src/ScrapeSites/ScrapeSite.js"
   },
