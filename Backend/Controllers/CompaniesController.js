@@ -8,13 +8,14 @@ const initCompanyController = async () => {
    */
   const getCompanies = async () => {
     try {
-      let stmt = `SELECT * FROM Companies`;
-      return db.all(stmt, [], (err, data) => {
-        if (err) {
-          return err.message;
-        }
-        return data;
+      const stmt = "SELECT * FROM Companies";
+      const data = new Promise((resolve, reject) => {
+          db.all(stmt, [], (err, data) => {
+            resolve(data);
+          });
       });
+
+      return await data;
     } catch (err) {
       throw new Error(`Getting companies failed with = ${err}`);
     }
