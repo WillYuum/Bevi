@@ -2,8 +2,8 @@ import app from "./app";
 require("dotenv").config();
 
 //-------------- IMPORTED ROUTES-----------------
-import initCompaniesRoutes from "./Routes/Companies.js";
-import initCompanyTypeRoutes from "./Routes/CompanyTypes.js"
+import initCompaniesRoutes from "./src/Routes/Companies.js";
+import initCompanyTypeRoutes from "./src/Routes/CompanyTypes.js"
 //-------------- IMPORTED ROUTES-----------------
 
 const Main = async () => {

@@ -1,4 +1,4 @@
-import app from "../app.js";
+import app from "../../app.js";
 import initCompanyController from "../Controllers/CompaniesController.js";
 
 const initCompaniesRoutes = async () => {
