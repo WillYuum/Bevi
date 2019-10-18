@@ -13,7 +13,7 @@
     "scrape-url": "nodemon --exec babel-node ./src/ScrapingCompanyName/main.js",
     "scrape-site": "nodemon --exec babel-node ./src/ScrapeSites/ScrapeSite.js"
   },
-  "author": "",
+  "author": "WillYum",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

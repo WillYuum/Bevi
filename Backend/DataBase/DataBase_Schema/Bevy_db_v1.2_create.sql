@@ -17,7 +17,7 @@ CREATE TABLE Companies (
 -- Table: CompanyPosts
 CREATE TABLE CompanyPosts (
     CompanyId integer NOT NULL,
-    CompanyPost integer NOT NULL CONSTRAINT CompanyPosts_pk PRIMARY KEY,
+    CompanyPost integer CONSTRAINT CompanyPosts_pk PRIMARY KEY,
     CONSTRAINT Copy_of_Table_1_Companies FOREIGN KEY (CompanyId)
     REFERENCES Companies (CompanyId)
 );
@@ -25,8 +25,8 @@ CREATE TABLE CompanyPosts (
 -- Table: Post
 CREATE TABLE Post (
     PostId integer NOT NULL CONSTRAINT Post_pk PRIMARY KEY,
-    Description text NOT NULL,
-    ImageUrl text NOT NULL,
+    Description text,
+    ImageUrl text,
     CONSTRAINT Copy_of_Table_1_Copy_of_Table_1 FOREIGN KEY (PostId)
     REFERENCES CompanyPosts (CompanyPost)
 );
