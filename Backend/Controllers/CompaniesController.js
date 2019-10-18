@@ -6,29 +6,28 @@ const initCompanyController = async () => {
    * @function getCompanies - controller to get all company data
    * @returns {object} - All company data
    */
-  const getCompanies = () => {
+  const getCompanies = async () => {
     try {
-      const stmt = `SELECT * from Company`;
-      db.all(stmt, [], (err, data) => {
+      let stmt = `SELECT * FROM Companies`;
+      return db.all(stmt, [], (err, data) => {
         if (err) {
-          throw new Error(`getting companies failed with = ${err}`);
+          return err.message;
         }
+        return data;
       });
     } catch (err) {
       throw new Error(`Getting companies failed with = ${err}`);
     }
   };
 
-  
-  const createCompnay = params => {
-    if (!params) {
-      throw new Error("didn't recieve any company data");
-    }
-  };
+  // const createCompnay = params => {
+  //   if (!params) {
+  //     throw new Error("didn't recieve any company data");
+  //   }
+  // };
 
   const controller = {
-    getCompanies,
-    createCompnay
+    getCompanies
   };
   return controller;
 };

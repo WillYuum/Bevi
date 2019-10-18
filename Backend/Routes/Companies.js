@@ -6,10 +6,10 @@ const initCompaniesRoutes = async () => {
 
   app.get("/companies", async (req, res, next) => {
     try {
-      const Companies = await controller.getCompanies();
+      let data = await controller.getCompanies();
       res.send({
         success: true,
-        Companies
+        Companies: data
       });
     } catch (err) {
       next(err);

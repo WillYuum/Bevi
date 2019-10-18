@@ -5,11 +5,11 @@
 -- Table: Companies
 CREATE TABLE Companies (
     CompanyId integer NOT NULL CONSTRAINT Companies_pk PRIMARY KEY,
-    CompanyLogo text NOT NULL,
-    CompanyName text NOT NULL,
-    CompanytypeId integer NOT NULL,
-    CompanyWebLink text NOT NULL,
-    CompanyDescription text NOT NULL,
+    CompanyLogo text,
+    CompanyName text,
+    CompanytypeId integer,
+    CompanyWebLink text,
+    CompanyDescription text,
     CONSTRAINT Companies_Copy_of_Table_1 FOREIGN KEY (CompanytypeId)
     REFERENCES Types (TypeId)
 );

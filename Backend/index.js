@@ -5,10 +5,13 @@ require("dotenv").config();
 import initCompaniesRoutes from "./Routes/Companies.js";
 //-------------- IMPORTED ROUTES-----------------
 
-// Port to listen on.
-console.log("here", app);
-app.listen(`${process.env.PORT}`, () => {
-  console.log(`listening on ${process.env.PORT}`);
-});
+const Main = async () => {
+  // Port to listen on.
+  app.listen(`${process.env.PORT}`, () => {
+    console.log(`listening on ${process.env.PORT}`);
+  });
 
-initCompaniesRoutes();
+  await initCompaniesRoutes();
+};
+
+Main()
