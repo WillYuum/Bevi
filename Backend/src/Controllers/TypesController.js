@@ -14,6 +14,7 @@ const initCompanyTypeController = async () => {
             return err;
           }
           resolve(result);
+          db.close();
         });
       });
     } catch (err) {
@@ -39,6 +40,7 @@ const initCompanyTypeController = async () => {
             return err;
           }
           resolve(result);
+          db.close();
         });
       });
     } catch (err) {
@@ -62,8 +64,8 @@ const initCompanyTypeController = async () => {
           if (err) {
             resolve(err);
           }
-          console.log("hi");
           resolve(result);
+          db.close();
         });
       });
     } catch (err) {
