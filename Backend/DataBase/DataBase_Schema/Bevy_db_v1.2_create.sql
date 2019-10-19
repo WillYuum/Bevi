@@ -7,7 +7,7 @@ CREATE TABLE Companies (
     CompanyId integer NOT NULL CONSTRAINT Companies_pk PRIMARY KEY,
     CompanyLogo text,
     CompanyName text,
-    SmallInfo text,
+    CompanySmallInfo text,
     CompanytypeId integer,
     CompanyWebLink text,
     CompanyDescription text,
