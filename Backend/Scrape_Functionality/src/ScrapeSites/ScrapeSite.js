@@ -86,12 +86,19 @@ const ScrapeAboutUs = async (page, url) => {
   await page.goto(AboutUsUrl);
   console.log("we are in", AboutUsUrl);
   return await page.evaluate(aboutSelector => {
-    const description = document.querySelector(
-      `${aboutSelector.CompanyDescription}`
-    ).innerHTML;
-    const weblink = document.querySelector(`${aboutSelector.CompanyWebLink}`)
-      .innerText;
-    return { CompanyWebLink: weblink, CompanyDescription: description };
+    const aboutData = {
+      CompanyWebLink: "",
+      CompanyDescription: ""
+    };
+    for (let key in aboutData) {
+      const htmlContent = document.querySelector(`${aboutSelector[key]}`);
+      if (htmlContent === null) {
+        aboutData[key] = "";
+      } else {
+        aboutData[key] = htmlContent.innerText;
+      }
+    }
+    return aboutData;
   }, aboutSelector);
 };
 
