@@ -1,5 +1,7 @@
 import fs from "fs";
 import loginToLinkinedin from "../publicFuncs/loginFunc.js";
+import { closeBrowser } from "../publicFuncs/broswerFunc.js";
+import initCompanyController from "../../../src/Controllers/CompaniesController.js";
 
 // Linkedin companySite selectors that is needed for this project
 import {
@@ -11,14 +13,16 @@ import {
  * @function Main - Scraping linkedIn Company Site happens Here
  */
 const Main = async () => {
-  console.log(aboutSelector.CompanyWebLink);
+  const controller = await initCompanyController();
   const CompanyUrls = fs.readFileSync("CompanyUrls.json");
   const urls = await JSON.parse(CompanyUrls);
 
   const page = await loginToLinkinedin("https://www.linkedin.com/login");
-  for (let i = 0; i < urls.length; i++) {
-    console.log(await ScrapeCompanySite(page, urls[i]));
+  for (let i = 0; i < 3; i++) {
+    const companyData = await ScrapeCompanySite(page, urls[i]);
+    await controller.createCompany(companyData);
   }
+  await closeBrowser();
 };
 
 /**
@@ -46,7 +50,6 @@ const ScrapeCompanySite = async (page, companyUrl) => {
  */
 const ScrapeHeader = async page => {
   console.log("scraping header");
-  console.log(headerSelectors.CompanyName);
   return await page.evaluate(headerSelectors => {
     let header = {
       CompanyName: "",
@@ -82,7 +85,7 @@ const ScrapeAboutUs = async (page, url) => {
     ).innerHTML;
     const weblink = document.querySelector(`${aboutSelector.CompanyWebLink}`)
       .innerText;
-    return { CompanyDescription: description, CompanyWebLink: weblink };
+    return { CompanyWebLink: weblink, CompanyDescription: description };
   }, aboutSelector);
 };
 

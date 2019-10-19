@@ -14,7 +14,6 @@ const initCompanyTypeController = async () => {
             return err;
           }
           resolve(result);
-          db.close();
         });
       });
     } catch (err) {
@@ -55,19 +54,20 @@ const initCompanyTypeController = async () => {
    */
   const createCompanyType = async companyType => {
     try {
-      if (!type) {
+      if (!companyType) {
         throw new Error("param in controller is empty");
       }
-      const stmt = "INSERT INTO Types (Type) VALUES (?)";
-      return new promises((resolve, rejects) => {
+      const stmt = "INSERT INTO Types (Type) VALUES(?)";
+      const promise = new Promise((resolve, rejects) => {
         return db.all(stmt, [companyType], (err, result) => {
           if (err) {
-            resolve(err);
+            rejects(new Error(`failed to create company type with = ${err}`));
           }
-          resolve(result);
-          db.close();
+          return resolve(result);
         });
       });
+      console.log("the promise", await promise);
+      return await promise;
     } catch (err) {
       throw new Error(`Creating compamny type failed with = ${err}`);
     }
