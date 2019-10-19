@@ -1,7 +1,7 @@
 import fs from "fs";
 import loginToLinkinedin from "../publicFuncs/loginFunc.js";
-import { closeBrowser } from "../publicFuncs/broswerFunc.js";
 import initCompanyController from "../../../src/Controllers/CompaniesController.js";
+import checkIfTypeExist from "./checkTypeExist.js";
 
 // Linkedin companySite selectors that is needed for this project
 import {
@@ -13,16 +13,15 @@ import {
  * @function Main - Scraping linkedIn Company Site happens Here
  */
 const Main = async () => {
-  const controller = await initCompanyController();
   const CompanyUrls = fs.readFileSync("CompanyUrls.json");
   const urls = await JSON.parse(CompanyUrls);
 
   const page = await loginToLinkinedin("https://www.linkedin.com/login");
-  for (let i = 0; i < 3; i++) {
-    const companyData = await ScrapeCompanySite(page, urls[i]);
-    await controller.createCompany(companyData);
+  for (let i = 0; i < urls.length; i++) {
+    console.log(i);
+    await ScrapeCompanySite(page, urls[i]);
   }
-  await closeBrowser();
+  console.log("finished scraping");
 };
 
 /**
@@ -32,15 +31,22 @@ const Main = async () => {
  * @returns {object}
  */
 const ScrapeCompanySite = async (page, companyUrl) => {
+  const controller = await initCompanyController();
+
   const url = `https://www.linkedin.com${companyUrl}`;
   await page.goto(url);
   console.log("we are in", url);
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
-  return {
+
+  //changing the CompanyType to id so it can be identified as an Id in the database
+  const TypeId = await checkIfTypeExist(headerContent.CompanyType);
+  headerContent.CompanyType = await TypeId;
+
+  await controller.createCompany({
     MainData: headerContent,
     AboutCompany: aboutdata
-  };
+  });
 };
 
 /**
@@ -53,8 +59,8 @@ const ScrapeHeader = async page => {
   return await page.evaluate(headerSelectors => {
     let header = {
       CompanyName: "",
-      CompanyType: "",
       CompanySmallInfo: "",
+      CompanyType: "",
       CompanyCity: ""
     };
     for (let key in header) {

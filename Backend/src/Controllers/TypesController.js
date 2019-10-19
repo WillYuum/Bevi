@@ -39,7 +39,6 @@ const initCompanyTypeController = async () => {
             return err;
           }
           resolve(result);
-          db.close();
         });
       });
     } catch (err) {
@@ -63,10 +62,9 @@ const initCompanyTypeController = async () => {
           if (err) {
             rejects(new Error(`failed to create company type with = ${err}`));
           }
-          return resolve(result);
+          resolve(result);
         });
       });
-      console.log("the promise", await promise);
       return await promise;
     } catch (err) {
       throw new Error(`Creating compamny type failed with = ${err}`);

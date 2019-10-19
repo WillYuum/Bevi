@@ -69,7 +69,7 @@ const recursiveScrappe = async (page, url, currentPage, max_page, list) => {
   await page.evaluate(() => {
     window.scrollBy(0, window.innerHeight);
   });
-  await page.waitFor(5000);
+  await page.waitFor(1500);
   const newList = await getUrlFromPage(page);
 
   console.log("Recieved comapny main Urls", newList);

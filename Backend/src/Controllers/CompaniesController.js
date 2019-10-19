@@ -15,7 +15,6 @@ const initCompanyController = async () => {
           resolve(data);
         });
       });
-      db.close();
       return await data;
     } catch (err) {
       throw new Error(`Getting companies failed with = ${err}`);
@@ -30,19 +29,20 @@ const initCompanyController = async () => {
     try {
       console.log("main data", params.MainData);
       console.log("about data", params.AboutCompany);
-      const { CompanyName, CompanySmallInfo, CompanyTypeId } = params.MainData;
+      const { CompanyName, CompanySmallInfo, CompanyType } = params.MainData;
       const { CompanyWebLink, CompanyDescription } = params.AboutCompany;
+      console.group(CompanyType);
       if (!params) {
         throw new Error("didn't recieve any company data");
       }
-      const stmt = `INSERT INTO Companies (CompanyName,CompanySmallInfo,  CompanyTypeId, CompanyWebLink, CompanyDescription) VALUES(?,?,?,?,?)`;
+      const stmt = `INSERT INTO Companies (CompanyName, CompanySmallInfo,  CompanyTypeId, CompanyWebLink, CompanyDescription) VALUES(?,?,?,?,?)`;
       return new Promise((resolve, rejects) => {
         db.all(
           stmt,
           [
             CompanyName,
             CompanySmallInfo,
-            CompanyTypeId,
+            CompanyType,
             CompanyWebLink,
             CompanyDescription
           ],
@@ -52,11 +52,9 @@ const initCompanyController = async () => {
             }
             resolve(result);
             console.info(`${CompanyName} data is saved in database`);
-            db.close()
           }
         );
       });
-      
     } catch (err) {
       throw new Error(`creating company faided with = ${err}`);
     }
