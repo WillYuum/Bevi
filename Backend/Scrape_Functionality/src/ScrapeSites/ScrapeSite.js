@@ -43,10 +43,35 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   const TypeId = await checkIfTypeExist(headerContent.CompanyType);
   headerContent.CompanyType = await TypeId;
 
+  await ScrapeCompanyLogo(page, headerContent.CompanyName);
+
   await controller.createCompany({
     MainData: headerContent,
     AboutCompany: aboutdata
   });
+};
+
+/**
+ * @function ScrapeCompanyLogo - saving the company logo in folder
+ * @param {page} page
+ * @param {string} companyName company name will be added to the directory of company Logo
+ */
+const ScrapeCompanyLogo = async (page, companyName) => {
+  console.log("Scraping Company Logo");
+  const ifLogoExist = await page.evaluate(() => {
+    return document.querySelector("img.org-top-card-primary-content__logo");
+  });
+  if (ifLogoExist) {
+    const Logo = await page.$(`${headerSelectors.CompanyLogo}`);
+    await Logo.screenshot({
+      path: "public/companylogos/" + companyName + ".png",
+      type: "png",
+      omitBackground: true
+    });
+  } else {
+    console.log("there is no logo");
+    return;
+  }
 };
 
 /**
@@ -71,7 +96,12 @@ const ScrapeHeader = async page => {
         header[key] = htmlContent.innerText;
       }
     }
-    return header;
+    const { CompanyName, CompanySmallInfo, CompanyType, CompanyCity } = header;
+    if (!CompanyName && !CompanySmallInfo && !CompanyType && !CompanyCity) {
+      return;
+    } else {
+      return header;
+    }
   }, headerSelectors);
 };
 

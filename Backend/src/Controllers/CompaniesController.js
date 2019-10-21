@@ -27,10 +27,11 @@ const initCompanyController = async () => {
    */
   const createCompany = async params => {
     try {
-      console.log("main data", params.MainData);
-      console.log("about data", params.AboutCompany);
       const { CompanyName, CompanySmallInfo, CompanyType } = params.MainData;
       const { CompanyWebLink, CompanyDescription } = params.AboutCompany;
+      if (!CompanyName && !CompanySmallInfo && !CompanyType) {
+        return;
+      }
       console.group(CompanyType);
       if (!params) {
         throw new Error("didn't recieve any company data");
