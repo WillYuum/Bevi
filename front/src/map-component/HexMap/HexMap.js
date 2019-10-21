@@ -1,11 +1,10 @@
 import React from "react";
 
 //----------------IMPORT COMPONENTS------------------
-  import HexCard from '../../components/HexCard/HexCard.js';
+import HexCard from "../../components/HexCard/HexCard.js";
 //----------------------END------------------
 
-import "./HexMap.scss"
-
+import "./HexMap.scss";
 
 class HexMap extends React.Component {
   constructor(props) {
@@ -13,7 +12,21 @@ class HexMap extends React.Component {
     this.state = {};
   }
   render() {
-    return <div className="HexMap-container"></div>;
+    const { CompanyData } = this.props;
+    return (
+      <div className="HexMap-container">
+        <ul id = "hexGrid">
+          {CompanyData.map(company => {
+            return (
+              <HexCard
+                CompanyName={company.CompanyName}
+                CompanyType={company.Type}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    );
   }
 }
 
