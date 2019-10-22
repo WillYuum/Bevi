@@ -9,7 +9,7 @@ const HexCard = ({ CompanyName, CompanyType }) => {
         <div className="hexLink">
           <img
             className="hexImage"
-            src={`http://localhost:3001/public/companylogos/${CompanyName}.png`}
+            src={`http://localhost:3001/companylogos/${CompanyName}.png`}
             alt={`Company Logo of ${CompanyName}`}
             width="100px"
           />

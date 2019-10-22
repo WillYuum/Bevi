@@ -27,7 +27,11 @@ class LandingPage extends React.Component {
   getCompanyData = async () => {
     try {
       const req = await fetch("http://localhost:3001/companies", {
-        method: "GET"
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
       });
       const res = await req.json();
       // console.log(res);

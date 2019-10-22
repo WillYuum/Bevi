@@ -27,6 +27,13 @@ class HexMap extends React.Component {
             );
           })}
         </ul>
+        {CompanyData.map((company, index) => {
+          return (
+            <img
+              src={`http://localhost:3001/public/companylogos/${company.CompanyName}.png`}
+            ></img>
+          );
+        })}
       </div>
     );
   }
