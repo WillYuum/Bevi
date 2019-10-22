@@ -11,14 +11,16 @@ class HexMap extends React.Component {
     super(props);
     this.state = {};
   }
+
   render() {
     const { CompanyData } = this.props;
     return (
       <div className="HexMap-container">
-        <ul id = "hexGrid">
-          {CompanyData.map(company => {
+        <ul id="hexGrid">
+          {CompanyData.map((company, index) => {
             return (
               <HexCard
+                key={index}
                 CompanyName={company.CompanyName}
                 CompanyType={company.Type}
               />

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { shuffleCompanies } from "../../utils/utils.js";
+
 //----------------IMPORT COMPONENTS------------------
 import HexMap from "../../map-component/HexMap/HexMap.js";
 import FilterMap from "../../map-component/FilterMap/FilterMap.js";
@@ -28,8 +30,10 @@ class LandingPage extends React.Component {
         method: "GET"
       });
       const res = await req.json();
-      console.log(res);
-      this.setState({ CompanyData: res.Companies });
+      // console.log(res);
+      const shuffledData = await shuffleCompanies(res.Companies);
+      console.log("shuffled Data", shuffledData);
+      this.setState({ CompanyData: shuffledData });
     } catch (err) {
       throw new Error(`Failed to fetch company Data with = ${err}`);
     }
