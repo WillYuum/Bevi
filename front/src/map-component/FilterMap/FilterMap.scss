@@ -1,0 +1,33 @@
+$firstRow: 0px;
+
+.FilterMap-container {
+  position: relative;
+  .CompanyType {
+    position: absolute;
+
+    &:nth-child(1) {
+      top: $firstRow;
+      left: 150px;
+    }
+    &:nth-child(2) {
+      top: 200px;
+    }
+    &:nth-child(3) {
+      top: 400px;
+      left:150px
+    }
+    &:nth-child(4) {
+      top: $firstRow;
+      right: 150px;
+    }
+    &:nth-child(5) {
+      top: 200px;
+      right: 10px;
+    }
+    &:nth-child(6) {
+        top:400px;
+        right: 150px;
+
+    }
+  }
+}

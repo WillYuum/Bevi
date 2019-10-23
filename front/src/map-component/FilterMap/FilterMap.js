@@ -12,7 +12,16 @@ class FilterMap extends React.Component {
     this.state = {};
   }
   render() {
-    return <div className="FilterMap-container"></div>;
+    const { CompanyTypes } = this.props;
+    return (
+      <div className="FilterMap-container">
+        {CompanyTypes.map((type, index) => {
+          while (index < 6) {
+            return <FilterButton Type={type.Type} />;
+          }
+        })}
+      </div>
+    );
   }
 }
 

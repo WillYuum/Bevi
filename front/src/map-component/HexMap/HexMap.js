@@ -18,22 +18,17 @@ class HexMap extends React.Component {
       <div className="HexMap-container">
         <ul id="hexGrid">
           {CompanyData.map((company, index) => {
-            return (
-              <HexCard
-                key={index}
-                CompanyName={company.CompanyName}
-                CompanyType={company.Type}
-              />
-            );
+            while (index < 14) {
+              return (
+                <HexCard
+                  key={index}
+                  CompanyName={company.CompanyName}
+                  CompanyType={company.Type}
+                />
+              );
+            }
           })}
         </ul>
-        {CompanyData.map((company, index) => {
-          return (
-            <img
-              src={`http://localhost:3001/public/companylogos/${company.CompanyName}.png`}
-            ></img>
-          );
-        })}
       </div>
     );
   }

@@ -1,13 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import "./FilterButton.scss"
+import "./FilterButton.scss";
 
-const FilterButton = ({...props}) => {
-    return ( 
-        <div className = "FilterButton-container">
+const FilterButton = ({ Type }) => {
+  return <h2 className="CompanyType">{Type}</h2>;
+};
 
-        </div>
-     );
-}
- 
 export default FilterButton;
