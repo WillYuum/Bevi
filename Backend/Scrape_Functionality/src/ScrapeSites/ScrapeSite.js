@@ -53,7 +53,7 @@ const ScrapeCompanySite = async (page, companyUrl) => {
 
 /**
  * @function ScrapeCompanyLogo - saving the company logo in folder
- * @param {page} page
+ * @param {class} page
  * @param {string} companyName company name will be added to the directory of company Logo
  */
 const ScrapeCompanyLogo = async (page, companyName) => {
@@ -115,11 +115,14 @@ const ScrapeAboutUs = async (page, url) => {
   const AboutUsUrl = `${url}about/`;
   await page.goto(AboutUsUrl);
   console.log("we are in", AboutUsUrl);
+
   return await page.evaluate(aboutSelector => {
     const aboutData = {
       CompanyWebLink: "",
-      CompanyDescription: ""
+      CompanyDescription: "",
+      CompanyEmployeeSize: ""
     };
+
     for (let key in aboutData) {
       const htmlContent = document.querySelector(`${aboutSelector[key]}`);
       if (htmlContent === null) {

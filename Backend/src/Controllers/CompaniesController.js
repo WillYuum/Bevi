@@ -20,7 +20,6 @@ const initCompanyController = async () => {
       throw new Error(`Getting companies failed with = ${err}`);
     }
   };
-
   /**
    * @function createCompany
    * @param {object} params
@@ -28,7 +27,11 @@ const initCompanyController = async () => {
   const createCompany = async params => {
     try {
       const { CompanyName, CompanySmallInfo, CompanyType } = params.MainData;
-      const { CompanyWebLink, CompanyDescription } = params.AboutCompany;
+      const {
+        CompanyWebLink,
+        CompanyDescription,
+        CompanyEmployeeSize
+      } = params.AboutCompany;
       if (!CompanyName && !CompanySmallInfo && !CompanyType) {
         return;
       }
@@ -36,7 +39,7 @@ const initCompanyController = async () => {
       if (!params) {
         throw new Error("didn't recieve any company data");
       }
-      const stmt = `INSERT INTO Companies (CompanyName, CompanySmallInfo,  CompanyTypeId, CompanyWebLink, CompanyDescription) VALUES(?,?,?,?,?)`;
+      const stmt = `INSERT INTO Companies (CompanyName, CompanySmallInfo,  CompanyTypeId, CompanyWebLink, CompanyDescription, CompanyEmployeeSize) VALUES(?,?,?,?,?,?)`;
       return new Promise((resolve, rejects) => {
         db.all(
           stmt,
@@ -45,7 +48,8 @@ const initCompanyController = async () => {
             CompanySmallInfo,
             CompanyType,
             CompanyWebLink,
-            CompanyDescription
+            CompanyDescription,
+            CompanyEmployeeSize
           ],
           (err, result) => {
             if (err) {

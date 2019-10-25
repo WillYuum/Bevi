@@ -10,5 +10,7 @@ export const headerSelectors = {
 //About section of linkedIn company site
 export const aboutSelector = {
   CompanyDescription: "p.break-words",
-  CompanyWebLink: "span.link-without-visited-state"
+  CompanyWebLink: "span.link-without-visited-state",
+  CompanyEmployeeSize:
+    "dd.org-about-company-module__company-size-definition-text"
 };
