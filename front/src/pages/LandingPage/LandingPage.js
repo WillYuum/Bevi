@@ -14,7 +14,8 @@ class LandingPage extends React.Component {
     super(props);
     this.state = {
       CompanyData: [],
-      CompanyTypes: []
+      CompanyTypes: [],
+      TypeData: ""
     };
   }
   // storing backend Url in readable variable
@@ -56,19 +57,39 @@ class LandingPage extends React.Component {
         }
       });
       const res = await req.json();
-      console.log("here",res)
+      console.log("here", res);
       this.setState({ CompanyTypes: res.CompanyTypes });
     } catch (err) {
       throw new Error(`Failed to fetch company Types Data with = ${err}`);
     }
   };
 
+  /**
+   * @function getTypeId - gets the typeId from filter button component
+   * @param {int} id - this id represents the type id
+   * @returns setState the id in TypeId in LandingPage
+   */
+  getTypeId = async id => {
+    await this.setState({ TypeId: id });
+    console.log(this.state.TypeId);
+  };
+
+  /**
+   * @function showAll - Turns the filter off by emptying the typeId
+   */
+  showAll = () => {
+    this.setState({ TypeId: "" });
+  };
+
   render() {
-    const { CompanyData, CompanyTypes } = this.state;
+    const { CompanyData, CompanyTypes, TypeId } = this.state;
     return (
       <div className="LandingPage-container">
-        <FilterMap CompanyTypes={CompanyTypes} />
-        <HexMap CompanyData={CompanyData} />
+        <h2 onClick={() => this.showAll()} className="ShowAll-btn">
+          Show All
+        </h2>
+        <FilterMap CompanyTypes={CompanyTypes} getTypeId={this.getTypeId} />
+        <HexMap CompanyData={CompanyData} TypeId={TypeId} />
       </div>
     );
   }
