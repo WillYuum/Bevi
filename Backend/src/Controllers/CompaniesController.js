@@ -20,6 +20,7 @@ const initCompanyController = async () => {
       throw new Error(`Getting companies failed with = ${err}`);
     }
   };
+
   /**
    * @function createCompany
    * @param {object} params

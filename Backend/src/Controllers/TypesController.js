@@ -26,7 +26,7 @@ const initCompanyTypeController = async () => {
    * @param {int} id - Id that represents the Type of company
    * @returns {object} - return {TypeId, Type}
    */
-  const getCompanyTypeById = async id => {
+  const getCompaniesByTypeId = async id => {
     try {
       if (!id) {
         throw new Error("Id is missing");
@@ -73,7 +73,7 @@ const initCompanyTypeController = async () => {
 
   const controller = {
     getCompanyTypes,
-    getCompanyTypeById,
+    getCompaniesByTypeId,
     createCompanyType
   };
   return controller;

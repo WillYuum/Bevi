@@ -20,10 +20,10 @@ const initCompanyTypeRoutes = async () => {
   app.get("/companies/type/:id?", async (req, res, next) => {
     try {
       const Id = req.params.id;
-      const type = await controller.getCompanyTypeById(Id);
+      const types = await controller.getCompaniesByTypeId(Id);
       res.send({
         success: true,
-        Type: type
+        Type: types
       });
     } catch (err) {
       next(err);
