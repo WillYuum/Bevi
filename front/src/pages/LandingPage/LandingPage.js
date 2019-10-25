@@ -56,6 +56,7 @@ class LandingPage extends React.Component {
         }
       });
       const res = await req.json();
+      console.log("here",res)
       this.setState({ CompanyTypes: res.CompanyTypes });
     } catch (err) {
       throw new Error(`Failed to fetch company Types Data with = ${err}`);

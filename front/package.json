@@ -30,5 +30,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "async-wait-until": "^1.2.4",
+    "enzyme": "^3.10.0",
+    "enzyme-to-json": "^3.4.3",
+    "nock": "^11.6.0"
   }
 }
