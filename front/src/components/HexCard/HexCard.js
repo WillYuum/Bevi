@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./HexCard.scss";
+import "./HexIntro.scss";
 
 const HexCard = ({ CompanyName, CompanyType }) => {
   const Back_Url = process.env.REACT_APP_BEVY_API;

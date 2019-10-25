@@ -8,12 +8,12 @@ import LandingPage from "./pages/LandingPage/LandingPage.js";
 import CompanyDetails from "./pages/CompanyDetails/CompanyDetails.js";
 //----------------IMPORT COMPONENTS------------------
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
       <Switch>
         <Route
           path="/"

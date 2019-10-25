@@ -9,17 +9,6 @@
   transform: rotate3d(0, 0, 0, 0deg);
 }
 
-#hexGrid {
-  display: flex;
-  flex-wrap: wrap;
-  width: 90%;
-  margin: 0 auto;
-  overflow: hidden;
-  font-family: "Raleway", sans-serif;
-  font-size: 15px;
-  list-style-type: none;
-}
-
 .hex {
   position: relative;
   visibility: hidden;
