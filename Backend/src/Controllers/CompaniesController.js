@@ -22,6 +22,31 @@ const initCompanyController = async () => {
   };
 
   /**
+   * @function getCompanyTypeById - Controller to return a company type with a specific id
+   * @param {int} id - Id that represents the Type of company
+   * @returns {object} - return {TypeId, Type}
+   */
+  const getCompaniesByTypeId = async typeId => {
+    try {
+      if (!typeId) {
+        throw new Error("Id is missing");
+      }
+
+      const stmt = `SELECT * FROM Companies WHERE CompanyTypeId = ${typeId}`;
+      return new Promise((resolve, rejects) => {
+        db.all(stmt, [], (err, result) => {
+          if (err) {
+            return err;
+          }
+          resolve(result);
+        });
+      });
+    } catch (err) {
+      throw new Error(`Getting company type by id = ${id} failed with ${err}`);
+    }
+  };
+
+  /**
    * @function createCompany
    * @param {object} params
    */
@@ -68,6 +93,7 @@ const initCompanyController = async () => {
 
   const controller = {
     getCompanies,
+    getCompaniesByTypeId,
     createCompany
   };
   return controller;
