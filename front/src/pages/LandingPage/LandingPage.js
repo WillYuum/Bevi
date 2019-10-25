@@ -8,6 +8,7 @@ import FilterMap from "../../map-component/FilterMap/FilterMap.js";
 //----------------IMPORT COMPONENTS------------------
 
 import "./LandingPage.scss";
+import "./ShowAllIntro.scss";
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -86,8 +87,9 @@ class LandingPage extends React.Component {
     return (
       <div className="LandingPage-container">
         <h2 onClick={() => this.showAll()} className="ShowAll-btn">
-          Show All
+          {TypeId ? "Show All" : ""}
         </h2>
+
         <FilterMap CompanyTypes={CompanyTypes} getTypeId={this.getTypeId} />
         <HexMap CompanyData={CompanyData} TypeId={TypeId} />
       </div>
