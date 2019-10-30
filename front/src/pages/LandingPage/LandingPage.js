@@ -1,6 +1,6 @@
 import React from "react";
 
-import { shuffleCompanies } from "../../utils/utils.js";
+import { Link } from "react-router-dom";
 
 //----------------IMPORT COMPONENTS------------------
 import HexMap from "../../map-component/HexMap/HexMap.js";
@@ -9,89 +9,39 @@ import FilterMap from "../../map-component/FilterMap/FilterMap.js";
 
 import "./LandingPage.scss";
 import "./ShowAllIntro.scss";
+import "../../public styles/Hex-Grid.scss"
 
 class LandingPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      CompanyData: [],
-      CompanyTypes: [],
-      TypeData: ""
-    };
+    this.state = {};
   }
-  // storing backend Url in readable variable
-  Back_Url = process.env.REACT_APP_BEVY_API;
-
-  componentDidMount = async () => {
-    await this.getCompanyData();
-    await this.getCompanyTypes();
-  };
-
-  /**
-   * @function getCompanyData - fetches all Company Data From DB
-   */
-  getCompanyData = async () => {
-    try {
-      const req = await fetch(`${this.Back_Url}/companies`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      });
-      const res = await req.json();
-      const shuffledData = await shuffleCompanies(res.Companies);
-      console.log("shuffled Data", shuffledData);
-      this.setState({ CompanyData: shuffledData });
-    } catch (err) {
-      throw new Error(`Failed to fetch company Data with = ${err}`);
-    }
-  };
-
-  getCompanyTypes = async () => {
-    try {
-      const req = await fetch(`${this.Back_Url}/companies/types`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      });
-      const res = await req.json();
-      console.log("here", res);
-      this.setState({ CompanyTypes: res.CompanyTypes });
-    } catch (err) {
-      throw new Error(`Failed to fetch company Types Data with = ${err}`);
-    }
-  };
-
-  /**
-   * @function getTypeId - gets the typeId from filter button component
-   * @param {int} id - this id represents the type id
-   * @returns setState the id in TypeId in LandingPage
-   */
-  getTypeId = async id => {
-    await this.setState({ TypeId: id });
-    console.log(this.state.TypeId);
-  };
-
-  /**
-   * @function showAll - Turns the filter off by emptying the typeId
-   */
-  showAll = () => {
-    this.setState({ TypeId: "" });
-  };
 
   render() {
-    const { CompanyData, CompanyTypes, TypeId } = this.state;
+    const { CompanyData } = this.props;
     return (
       <div className="LandingPage-container">
-        <h2 onClick={() => this.showAll()} className="ShowAll-btn">
-          {TypeId ? "Show All" : ""}
-        </h2>
-
-        <FilterMap CompanyTypes={CompanyTypes} getTypeId={this.getTypeId} />
-        <HexMap CompanyData={CompanyData} TypeId={TypeId} />
+        <div className="Bevi-introCotntainer">
+          <h1>A Collection of All Tech Companies in Lebanon</h1>
+          <small>Search for your fitting tech company with ease!</small>
+        </div>
+        <div className="content-container">
+          <div className="featuredCompanies-container">
+            <h2>Featured Companies</h2>
+            <div className="featuredCompanies-grid hexGrid">
+              <HexMap CompanyData={CompanyData} hexAmount="7" />
+            </div>
+          </div>
+          <div className="QuickSearch-container">
+            <h2>Quick Search</h2>
+            <div className="QuickSearch-grid hexGrid"></div>
+          </div>
+        </div>
+        <div className="StartSearching">
+          <Link className="text" to="/companies">
+            <button>Start Searching</button>
+          </Link>
+        </div>
       </div>
     );
   }

@@ -5,7 +5,12 @@ import HexCard from "../../components/HexCard/HexCard.js";
 //----------------------END------------------
 
 import "./HexMap.scss";
-
+/**
+ * @class HexMap
+ * @prop {array} CompanyData - array of data
+ * @prop {string} TypeId - it could empty or one of the type in the database
+ * @prop {int} hexAmount - the amount of companies to mapped
+ */
 class HexMap extends React.Component {
   constructor(props) {
     super(props);
@@ -31,31 +36,41 @@ class HexMap extends React.Component {
   };
 
   render() {
-    const { CompanyData, TypeId } = this.props;
+    const { CompanyData } = this.props;
+    //Condition props
+    const { hexAmount, TypeId } = this.props;
     return (
       <div className="HexMap-container">
-        <ul id="hexGrid">
+        <ul className="hexGrid">
           {CompanyData.map((company, index) => {
-            if (company.CompanytypeId === TypeId) {
-              while (index < 14) {
-                return (
-                  <HexCard
-                    CompanyName={company.CompanyName}
-                    CompanyType={company.Type}
-                  />
-                );
-              }
+            while (index < hexAmount) {
+              return (
+                <HexCard
+                  CompanyName={company.CompanyName}
+                  CompanyType={company.Type}
+                />
+              );
             }
-            if (TypeId === "") {
-              while (index < 14) {
-                return (
-                  <HexCard
-                    CompanyName={company.CompanyName}
-                    CompanyType={company.Type}
-                  />
-                );
-              }
-            }
+            // if (company.CompanytypeId === TypeId) {
+            //   while (index < hexAmount) {
+            //     return (
+            //       <HexCard
+            //         CompanyName={company.CompanyName}
+            //         CompanyType={company.Type}
+            //       />
+            //     );
+            //   }
+            // }
+            // if (TypeId === "") {
+            //   while (index < hexAmount) {
+            //     return (
+            //       <HexCard
+            //         CompanyName={company.CompanyName}
+            //         CompanyType={company.Type}
+            //       />
+            //     );
+            //   }
+            // }
           })}
         </ul>
       </div>

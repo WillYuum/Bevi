@@ -1,11 +1,54 @@
+$text-Color: rgba(255, 250, 198, 1);
+
+$HexMap-Container-width: 650px;
+
 .LandingPage-container {
-  width: 80vw;
+  width: 95vw;
   margin: 0 auto;
-  min-height: 85vh;
-  padding-top:150px;
-  .ShowAll-btn{
-      font-size:1.1em;
+  .Bevi-introCotntainer {
+    text-align: center;
+    margin: 40px 0px;
+    small {
+      font-weight: bold;
+      color: #36393b;
+    }
+  }
+
+  .content-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 400px;
+
+    h2 {
       text-align: center;
-      margin: 70px 0px;
+    }
+    .featuredCompanies-container {
+      margin: auto;
+      width: $HexMap-Container-width;
+      height: 100%;
+    }
+
+    .QuickSearch-container {
+      margin: auto;
+      width: $HexMap-Container-width;
+      background-color: green;
+    }
+  }
+  .StartSearching {
+    text-align: center;
+
+    button {
+      background-color: #000000;
+      width: 175px;
+      height: 50px;
+      margin: 100px 0 0 0;
+      font-size: 18px;
+      color: $text-Color;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
