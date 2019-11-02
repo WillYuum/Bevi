@@ -1,13 +1,14 @@
 $text-Color: rgba(255, 250, 198, 1);
-
+$BackgroundColor-HexFilter: rgba(233, 255, 140, 1);
 $HexMap-Container-width: 650px;
 
 .LandingPage-container {
   width: 95vw;
   margin: 0 auto;
   .Bevi-introCotntainer {
+    height: 50%;
     text-align: center;
-    margin: 40px 0px;
+    margin: 60px 0px;
     small {
       font-weight: bold;
       color: #36393b;
@@ -17,21 +18,20 @@ $HexMap-Container-width: 650px;
   .content-container {
     display: flex;
     flex-wrap: wrap;
-    height: 400px;
+    height: 50%;
 
     h2 {
       text-align: center;
+      margin: 30px 0;
     }
     .featuredCompanies-container {
       margin: auto;
       width: $HexMap-Container-width;
-      height: 100%;
     }
 
     .QuickSearch-container {
       margin: auto;
       width: $HexMap-Container-width;
-      background-color: green;
     }
   }
   .StartSearching {

@@ -43,7 +43,6 @@ class App extends React.Component {
       });
       const res = await req.json();
       const shuffledData = await shuffleCompanies(res.Companies);
-      console.log("shuffled Data", shuffledData);
       this.setState({ CompanyData: shuffledData });
     } catch (err) {
       throw new Error(`Failed to fetch company Data with = ${err}`);
@@ -60,15 +59,15 @@ class App extends React.Component {
         }
       });
       const res = await req.json();
-      console.log("here", res);
-      this.setState({ CompanyTypes: res.CompanyTypes });
+      const shuffledData = await shuffleCompanies(res.CompanyTypes);
+      this.setState({ CompanyTypes: shuffledData });
     } catch (err) {
       throw new Error(`Failed to fetch company Types Data with = ${err}`);
     }
   };
 
   render() {
-    const { CompanyData } = this.state;
+    const { CompanyData, CompanyTypes } = this.state;
     return (
       <div className="App">
         <NavBar />
@@ -77,14 +76,19 @@ class App extends React.Component {
             path="/"
             exact={true}
             render={() => {
-              return <LandingPage CompanyData={CompanyData} />;
+              return (
+                <LandingPage
+                  CompanyData={CompanyData}
+                  CompanyTypes={CompanyTypes}
+                />
+              );
             }}
           />
 
           <Route
             path="/companies"
             render={() => {
-              return <CompaniesPage />;
+              return <CompaniesPage CompanyData={CompanyData} />;
             }}
           />
 

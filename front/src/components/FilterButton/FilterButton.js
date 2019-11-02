@@ -1,12 +1,21 @@
 import React from "react";
 
+import "./HexIntro.scss";
 import "./FilterButton.scss";
 
+/**
+ * @prop {int} TypeId
+ * @param {Type} Type
+ */
 const FilterButton = ({ TypeId, Type, getTypeId }) => {
   return (
-    <h2 onClick={async () => await getTypeId(TypeId)} className="CompanyType">
-      {Type}
-    </h2>
+    <li className="hex">
+      <div className="hexIn">
+        <div className="hexLink">
+          <p className="FilterText">{Type}</p>
+        </div>
+      </div>
+    </li>
   );
 };
 

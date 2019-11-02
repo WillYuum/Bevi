@@ -1,12 +1,20 @@
 import React from "react";
 
 import "./HexCard.scss";
-import "./HexIntro.scss";
+import "../../public styles/HexIntro.scss";
 
-const HexCard = ({ CompanyName, CompanyType }) => {
+/**
+ *
+ * @param {array} CompanyName
+ * @param {string} CompanyType
+ * @param {cssModule} hexModuleCss - executes this css module you added to the hex selector
+ */
+const HexCard = ({ CompanyName, CompanyType, hexModuleCss }) => {
+  //simplifying the procces.env variable
   const Back_Url = process.env.REACT_APP_BEVY_API;
+
   return (
-    <li className="hex">
+    <li className={`${hexModuleCss.hex} hex`}>
       <div className="hexIn">
         <div className="hexLink">
           <img

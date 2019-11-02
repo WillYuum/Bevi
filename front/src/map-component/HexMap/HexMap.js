@@ -5,6 +5,9 @@ import HexCard from "../../components/HexCard/HexCard.js";
 //----------------------END------------------
 
 import "./HexMap.scss";
+import "../../public styles/Hex-Grid.scss";
+
+import colOf5 from "../../public styles/colOf5.module.scss";
 /**
  * @class HexMap
  * @prop {array} CompanyData - array of data
@@ -37,17 +40,19 @@ class HexMap extends React.Component {
 
   render() {
     const { CompanyData } = this.props;
+
     //Condition props
     const { hexAmount, TypeId } = this.props;
     return (
       <div className="HexMap-container">
-        <ul className="hexGrid">
+        <ul className={`${colOf5.hexGrid} hexGrid`}>
           {CompanyData.map((company, index) => {
             while (index < hexAmount) {
               return (
                 <HexCard
                   CompanyName={company.CompanyName}
                   CompanyType={company.Type}
+                  hexModuleCss = {colOf5}
                 />
               );
             }

@@ -8,8 +8,6 @@ import FilterMap from "../../map-component/FilterMap/FilterMap.js";
 //----------------IMPORT COMPONENTS------------------
 
 import "./LandingPage.scss";
-import "./ShowAllIntro.scss";
-import "../../public styles/Hex-Grid.scss"
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -18,7 +16,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { CompanyData } = this.props;
+    const { CompanyData, CompanyTypes } = this.props;
     return (
       <div className="LandingPage-container">
         <div className="Bevi-introCotntainer">
@@ -34,7 +32,9 @@ class LandingPage extends React.Component {
           </div>
           <div className="QuickSearch-container">
             <h2>Quick Search</h2>
-            <div className="QuickSearch-grid hexGrid"></div>
+            <div className="QuickSearch-grid hexGrid">
+              <FilterMap CompanyTypes={CompanyTypes} FilterButtonAmount="5" />
+            </div>
           </div>
         </div>
         <div className="StartSearching">
