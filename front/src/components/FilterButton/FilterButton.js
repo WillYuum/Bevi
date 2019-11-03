@@ -6,6 +6,7 @@ import "./FilterButton.scss";
 /**
  * @prop {int} TypeId
  * @param {Type} Type
+ * @param {func} getTypeId - the function will be added to onlick to get the Id of the type
  */
 const FilterButton = ({ TypeId, Type, getTypeId }) => {
   return (

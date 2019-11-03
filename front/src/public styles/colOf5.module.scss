@@ -4,11 +4,11 @@
     padding-bottom: 4.4%;
   }
   .hex {
-    width: 20%; /* = 100 / 5 */
+    width: 15%; /* = 100 / 5 */
   }
-  .hex:nth-child(9n + 6) {
+  .hex:nth-child(12n + 7) {
     /* first hexagon of even rows */
-    margin-left: 10%; /* = width of .hex / 2  to indent even rows */
+    margin-left: 7.5%; /* = width of .hex / 2  to indent even rows */
   }
 }
 
