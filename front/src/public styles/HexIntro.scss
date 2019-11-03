@@ -3,9 +3,9 @@
   transform: rotateY(-90deg);
 }
 
-@for $i from 1 through 14 {
+@for $i from 1 through 50 {
   .hex {
-    &:nth-child(#{random($i)}) {
+    &:nth-child(#{$i}) {
       animation-delay: $i * (1s/10);
     }
   }

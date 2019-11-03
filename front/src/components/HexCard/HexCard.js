@@ -14,7 +14,7 @@ const HexCard = ({ CompanyName, CompanyType, hexModuleCss }) => {
   const Back_Url = process.env.REACT_APP_BEVY_API;
 
   return (
-    <li className={`${hexModuleCss.hex} hex`}>
+    <li className={`${hexModuleCss} hex`}>
       <div className="hexIn">
         <div className="hexLink">
           <img
