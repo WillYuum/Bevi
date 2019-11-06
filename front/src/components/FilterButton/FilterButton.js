@@ -1,9 +1,8 @@
 import React from "react";
 
 // import HexIntro from "../../public styles/HexIntro.module.scss";
-import HexIntro from "../../public styles/HexIntro.module.scss"
+import HexIntro from "../../public styles/HexIntro.module.scss";
 import hexCard from "./FilterButton.module.scss";
-
 
 /**
  * @prop {int} TypeId
@@ -16,7 +15,9 @@ const FilterButton = ({ TypeId, Type, FilterButtonModuleCss, getTypeId }) => {
     <li className={`${FilterButtonModuleCss} ${hexCard.hex} ${HexIntro.hex}`}>
       <div className={hexCard.hexIn}>
         <div className={hexCard.hexLink}>
-          <p className={hexCard.FilterText}>{Type}</p>
+          <div className={hexCard.filterTextContainer}>
+            <p className={hexCard.FilterText}>{Type}</p>
+          </div>
         </div>
       </div>
     </li>

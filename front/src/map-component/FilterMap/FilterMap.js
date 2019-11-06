@@ -9,7 +9,7 @@ import FilterButton from "../../components/FilterButton/FilterButton.js";
 import "./FilterMap.scss";
 import "../../public styles/Hex-Grid.scss";
 
-import colOf6 from "../../public styles/colOf6.module.scss";
+import colOf3 from "../../public styles/colOf3.module.scss";
 
 /**
  * @prop {array} CompanyTypes - takes array of company types
@@ -34,7 +34,7 @@ class FilterMap extends React.Component {
     console.log(CompanyTypes);
     return (
       <div className="FilterMap-container">
-        <ul className={`${colOf6.hexGrid} hexGrid`}>
+        <ul className={`${colOf3.hexGrid} hexGrid`}>
           {CompanyTypes.map((type, index) => {
             while (index < FilterButtonAmount) {
               return (

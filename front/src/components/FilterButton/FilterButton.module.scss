@@ -34,10 +34,17 @@
     -webkit-transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
     -ms-transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
     transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
-    .FilterText {
-      top: 50%;
-      padding-bottom: 50%;
-      color: black;
+    .filterTextContainer {
+      height: 10em;
+      position: relative;
+      .FilterText {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+      }
     }
     &:hover {
       cursor: pointer;
