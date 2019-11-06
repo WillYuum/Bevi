@@ -1,4 +1,6 @@
 import loginToLinkinedin from "../publicFuncs/loginFunc.js";
+import { closeBrowser } from "../publicFuncs/broswerFunc.js";
+
 const fs = require("fs");
 
 const url =
@@ -20,6 +22,9 @@ const Main = async () => {
   } catch (err) {
     console.log(`Fetching Main failed with = ${err}`);
   }
+  console.log("Finished scraping company urls");
+  closeBrowser();
+  return;
 };
 
 /**

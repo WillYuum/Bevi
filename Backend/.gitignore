@@ -6,5 +6,7 @@ src/credentials.js
 
 Bevy.sqlite
 
-# Ignoring images
+CompanyUrls
+
+# Ignoring CompanyLogo images
 **/*.png

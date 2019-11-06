@@ -2,6 +2,7 @@ import fs from "fs";
 import loginToLinkinedin from "../publicFuncs/loginFunc.js";
 import initCompanyController from "../../../src/Controllers/CompaniesController.js";
 import checkIfTypeExist from "./checkTypeExist.js";
+import { closeBrowser } from "../publicFuncs/broswerFunc.js";
 
 // Linkedin companySite selectors that is needed for this project
 import {
@@ -22,6 +23,7 @@ const Main = async () => {
     await ScrapeCompanySite(page, urls[i]);
   }
   console.log("finished scraping");
+  closeBrowser();
 };
 
 /**
