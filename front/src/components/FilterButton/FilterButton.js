@@ -1,19 +1,22 @@
 import React from "react";
 
-import "./HexIntro.scss";
-import "./FilterButton.scss";
+// import HexIntro from "../../public styles/HexIntro.module.scss";
+import HexIntro from "../../public styles/HexIntro.module.scss"
+import hexCard from "./FilterButton.module.scss";
+
 
 /**
  * @prop {int} TypeId
- * @param {Type} Type
+ * @prop {string} Type
+ * @prop {string} FilterButtonModuleCss
  * @param {func} getTypeId - the function will be added to onlick to get the Id of the type
  */
-const FilterButton = ({ TypeId, Type, getTypeId }) => {
+const FilterButton = ({ TypeId, Type, FilterButtonModuleCss, getTypeId }) => {
   return (
-    <li className="hex">
-      <div className="hexIn">
-        <div className="hexLink">
-          <p className="FilterText">{Type}</p>
+    <li className={`${FilterButtonModuleCss} ${hexCard.hex} ${HexIntro.hex}`}>
+      <div className={hexCard.hexIn}>
+        <div className={hexCard.hexLink}>
+          <p className={hexCard.FilterText}>{Type}</p>
         </div>
       </div>
     </li>

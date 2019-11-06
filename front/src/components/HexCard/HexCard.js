@@ -1,7 +1,7 @@
 import React from "react";
 
-import "./HexCard.scss";
-import "../../public styles/HexIntro.scss";
+import hexCard from "./HexCard.module.scss";
+import HexIntro from "../../public styles/HexIntro.module.scss";
 
 /**
  *
@@ -14,11 +14,11 @@ const HexCard = ({ CompanyName, CompanyType, hexModuleCss }) => {
   const Back_Url = process.env.REACT_APP_BEVY_API;
 
   return (
-    <li className={`${hexModuleCss} hex`}>
-      <div className="hexIn">
-        <div className="hexLink">
+    <li className={`${hexModuleCss} ${hexCard.hex} ${HexIntro.hex}`}>
+      <div className={hexCard.hexIn}>
+        <div className={hexCard.hexLink}>
           <img
-            className="hexImage"
+            className={hexCard.img}
             src={`${Back_Url}/companylogos/${CompanyName}.png`}
             alt={`Company Logo of ${CompanyName}`}
             width="100px"

@@ -1,0 +1,47 @@
+.hex {
+  position: relative;
+  visibility: hidden;
+  outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 86.602%; /* =  100 / tan(60) * 1.5 */
+  }
+  .hexIn {
+    position: absolute;
+    width: 96%;
+    padding-bottom: 110.851%; /* =  width / sin(60) */
+    margin: 0 2%;
+    overflow: hidden;
+    visibility: hidden;
+    outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+    -webkit-transform: rotate3d(0, 0, 1, -60deg) skewY(30deg);
+    -ms-transform: rotate3d(0, 0, 1, -60deg) skewY(30deg);
+    transform: rotate3d(0, 0, 1, -60deg) skewY(30deg);
+  }
+  .hexIn * {
+    position: absolute;
+    visibility: visible;
+    outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+  }
+  .hexLink {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: #e9ff8c;
+    overflow: hidden;
+    -webkit-transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
+    -ms-transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
+    transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
+    .FilterText {
+      top: 50%;
+      padding-bottom: 50%;
+      color: black;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: #8fa52d;
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { checkColSize } from "../../utils/checkColSize.js";
+
 //----------------IMPORT COMPONENTS------------------
 import HexCard from "../../components/HexCard/HexCard.js";
 //----------------------END------------------
@@ -8,8 +10,6 @@ import "./HexMap.scss";
 import "../../public styles/Hex-Grid.scss";
 
 import colOf6 from "../../public styles/colOf6.module.scss";
-import colOf4 from "../../public styles/colOf4.module.scss";
-import colOf3 from "../../public styles/colOf3.module.scss";
 
 /**
  * @class HexMap
@@ -41,20 +41,10 @@ class HexMap extends React.Component {
     }
   };
 
-  checkColSize = size => {
-    if (size === "3") {
-      return colOf3.hex;
-    } else if (size === "4") {
-      return colOf4.hex;
-    } else {
-      return colOf6.hex;
-    }
-  };
-
   render() {
     const { CompanyData } = this.props;
 
-    //Condition props
+    //Conditional props
     const { hexAmount, colSize, TypeId } = this.props;
     return (
       <div className="HexMap-container">
@@ -65,7 +55,7 @@ class HexMap extends React.Component {
                 <HexCard
                   CompanyName={company.CompanyName}
                   CompanyType={company.Type}
-                  hexModuleCss={this.checkColSize(colSize)}
+                  hexModuleCss={checkColSize(colSize)}
                 />
               );
             }

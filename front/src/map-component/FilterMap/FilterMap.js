@@ -1,11 +1,15 @@
 import React from "react";
 
+import { checkColSize } from "../../utils/checkColSize.js";
+
 //----------------IMPORT COMPONENTS------------------
 import FilterButton from "../../components/FilterButton/FilterButton.js";
 //----------------------END------------------
 
 import "./FilterMap.scss";
 import "../../public styles/Hex-Grid.scss";
+
+import colOf6 from "../../public styles/colOf6.module.scss";
 
 /**
  * @prop {array} CompanyTypes - takes array of company types
@@ -26,11 +30,11 @@ class FilterMap extends React.Component {
     const { getTypeId } = this.props;
 
     //Conditional props
-    const { FilterButtonAmount } = this.props;
+    const { FilterButtonAmount, colSize } = this.props;
     console.log(CompanyTypes);
     return (
       <div className="FilterMap-container">
-        <ul className="hexGrid">
+        <ul className={`${colOf6.hexGrid} hexGrid`}>
           {CompanyTypes.map((type, index) => {
             while (index < FilterButtonAmount) {
               return (
@@ -39,6 +43,7 @@ class FilterMap extends React.Component {
                   TypeId={type.TypeId}
                   Type={type.Type}
                   getTypeId={getTypeId}
+                  FilterButtonModuleCss={checkColSize(colSize)}
                 />
               );
             }

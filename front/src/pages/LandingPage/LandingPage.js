@@ -27,13 +27,17 @@ class LandingPage extends React.Component {
           <div className="featuredCompanies-container">
             <h2>Featured Companies</h2>
             <div className="featuredCompanies-grid hexGrid">
-              <HexMap CompanyData={CompanyData} hexAmount="7" colSize="4"/>
+              <HexMap CompanyData={CompanyData} hexAmount="7" colSize="4" />
             </div>
           </div>
           <div className="QuickSearch-container">
             <h2>Quick Search</h2>
             <div className="QuickSearch-grid hexGrid">
-              <FilterMap CompanyTypes={CompanyTypes} FilterButtonAmount="5" />
+              <FilterMap
+                CompanyTypes={CompanyTypes}
+                FilterButtonAmount="5"
+                colSize="3"
+              />
             </div>
           </div>
         </div>
