@@ -1,6 +1,7 @@
 import React from "react";
 
-// import HexIntro from "../../public styles/HexIntro.module.scss";
+import { Link } from "react-router-dom";
+
 import HexIntro from "../../public styles/HexIntro.module.scss";
 import hexCard from "./FilterButton.module.scss";
 
@@ -13,13 +14,15 @@ import hexCard from "./FilterButton.module.scss";
 const FilterButton = ({ TypeId, Type, FilterButtonModuleCss, getTypeId }) => {
   return (
     <li className={`${FilterButtonModuleCss} ${hexCard.hex} ${HexIntro.hex}`}>
-      <div className={hexCard.hexIn}>
-        <div className={hexCard.hexLink}>
-          <div className={hexCard.filterTextContainer}>
-            <p className={hexCard.FilterText}>{Type}</p>
+      <Link to={`/companies/${TypeId}`}>
+        <div className={hexCard.hexIn}>
+          <div className={hexCard.hexLink}>
+            <div className={hexCard.filterTextContainer}>
+              <p className={hexCard.FilterText}>{Type}</p>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     </li>
   );
 };

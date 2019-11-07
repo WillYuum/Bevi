@@ -38,6 +38,7 @@
       height: 10em;
       position: relative;
       .FilterText {
+        color:black;
         margin: 0;
         position: absolute;
         top: 50%;
@@ -47,7 +48,6 @@
       }
     }
     &:hover {
-      cursor: pointer;
       background-color: #8fa52d;
     }
   }
