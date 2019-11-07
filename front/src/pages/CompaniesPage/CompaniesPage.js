@@ -15,12 +15,15 @@ class CompaniesPage extends React.Component {
     this.state = {};
   }
   render() {
-    const { CompanyData } = this.props;
+    const { CompanyData, ...props } = this.props;
     return (
       <div className="CompaniesPage-container">
         <div className="FilterSection"></div>
         <div className="CompaniesSection">
-          <HexMap CompanyData={CompanyData} hexAmount={CompanyData.length} />
+          <HexMap
+            CompanyData={CompanyData}
+            TypeId={props.match.params.id}
+          />
         </div>
       </div>
     );

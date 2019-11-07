@@ -12,7 +12,6 @@ import "../../public styles/Hex-Grid.scss";
 import colOf6 from "../../public styles/colOf6.module.scss";
 
 /**
- * @class HexMap
  * @prop {array} CompanyData - array of data
  * @prop {string} TypeId - it could empty or one of the type in the database
  * @prop {int} hexAmount - the amount of companies to mapped
@@ -25,19 +24,27 @@ class HexMap extends React.Component {
     };
   }
 
-  getCompaniesByType = async TypeId => {
+  // storing backend Url in readable variable
+  Back_Url = process.env.REACT_APP_BEVY_API;
+
+  componentDidMount() {
+    const {...props} = this.props
+    console.log(props);
+    if (props.TypeId) {
+      this.getCompaniesByType(props.TypeId);
+    }
+  }
+
+ 
+  getCompaniesByType = async id => {
     try {
-      const req = await fetch(``, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      });
+      console.log(id);
+      const req = await fetch(`${this.Back_Url}/companies/type/${id}`);
       const res = await req.json();
-      this.setState({ FilteredCompanies: res.companies });
+      this.setState({ filteredCompanies: res.Companies });
+      debugger;
     } catch (err) {
-      throw new Error("getting company Data");
+      throw new Error(`getting company Data with ${err}`);
     }
   };
 
@@ -49,37 +56,37 @@ class HexMap extends React.Component {
     return (
       <div className="HexMap-container">
         <ul className={`${colOf6.hexGrid} hexGrid`}>
-          {CompanyData.map((company, index) => {
-            while (index < hexAmount) {
-              return (
-                <HexCard
-                  CompanyName={company.CompanyName}
-                  CompanyType={company.Type}
-                  hexModuleCss={checkColSize(colSize)}
-                />
-              );
-            }
-            // if (company.CompanytypeId === TypeId) {
-            //   while (index < hexAmount) {
-            //     return (
-            //       <HexCard
-            //         CompanyName={company.CompanyName}
-            //         CompanyType={company.Type}
-            //       />
-            //     );
-            //   }
-            // }
-            // if (TypeId === "") {
-            //   while (index < hexAmount) {
-            //     return (
-            //       <HexCard
-            //         CompanyName={company.CompanyName}
-            //         CompanyType={company.Type}
-            //       />
-            //     );
-            //   }
-            // }
-          })}
+          {this.state.filteredCompanies.length > 0
+            ? this.state.filteredCompanies.map(company => {
+                return (
+                  <HexCard
+                    CompanyName={company.CompanyName}
+                    CompanyType={company.Type}
+                    hexModuleCss={checkColSize(colSize)}
+                  />
+                );
+              })
+            : CompanyData.map((company, index) => {
+                if (hexAmount) {
+                  while (hexAmount > index) {
+                    return (
+                      <HexCard
+                        CompanyName={company.CompanyName}
+                        CompanyType={company.Type}
+                        hexModuleCss={checkColSize(colSize)}
+                      />
+                    );
+                  }
+                } else {
+                  return (
+                    <HexCard
+                      CompanyName={company.CompanyName}
+                      CompanyType={company.Type}
+                      hexModuleCss={checkColSize(colSize)}
+                    />
+                  );
+                }
+              })}
         </ul>
       </div>
     );

@@ -60,7 +60,6 @@ class App extends React.Component {
       });
       const res = await req.json();
       const shuffledData = await shuffleCompanies(res.CompanyTypes);
-      console.log(shuffledData)
       this.setState({ CompanyTypes: shuffledData });
     } catch (err) {
       throw new Error(`Failed to fetch company Types Data with = ${err}`);
@@ -87,9 +86,9 @@ class App extends React.Component {
           />
 
           <Route
-            path="/companies"
-            render={() => {
-              return <CompaniesPage CompanyData={CompanyData} />;
+            path="/companies/:id"
+            render={props => {
+              return <CompaniesPage CompanyData={CompanyData} {...props} />;
             }}
           />
 
