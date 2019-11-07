@@ -32,7 +32,7 @@ const initCompanyController = async () => {
         throw new Error("Id is missing");
       }
 
-      const stmt = `SELECT * FROM Companies WHERE CompanyTypeId = ${typeId}`;
+      const stmt = `SELECT * FROM Companies JOIN Types ON Companies.CompanytypeId = Types.TypeId WHERE CompanyTypeId = ${typeId}`;
       return new Promise((resolve, rejects) => {
         db.all(stmt, [], (err, result) => {
           if (err) {
@@ -61,7 +61,6 @@ const initCompanyController = async () => {
       if (!CompanyName && !CompanySmallInfo && !CompanyType) {
         return;
       }
-      console.group(CompanyType);
       if (!params) {
         throw new Error("didn't recieve any company data");
       }
