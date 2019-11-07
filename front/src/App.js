@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Route, Switch, withRouter } from "react-router-dom";
-import { shuffleCompanies } from "./utils/utils.js";
+import { shuffleCompanies } from "./utils/shuffleCompanies";
 
 //----------------IMPORT COMPONENTS------------------
 import NavBar from "./components/NavBar/NavBar.js";
