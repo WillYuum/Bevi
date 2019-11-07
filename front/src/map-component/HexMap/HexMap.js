@@ -28,21 +28,19 @@ class HexMap extends React.Component {
   Back_Url = process.env.REACT_APP_BEVY_API;
 
   componentDidMount() {
-    const {...props} = this.props
+    const { ...props } = this.props;
     console.log(props);
     if (props.TypeId) {
       this.getCompaniesByType(props.TypeId);
     }
   }
 
- 
   getCompaniesByType = async id => {
     try {
       console.log(id);
       const req = await fetch(`${this.Back_Url}/companies/type/${id}`);
       const res = await req.json();
       this.setState({ filteredCompanies: res.Companies });
-      debugger;
     } catch (err) {
       throw new Error(`getting company Data with ${err}`);
     }
@@ -53,11 +51,14 @@ class HexMap extends React.Component {
 
     //Conditional props
     const { hexAmount, colSize, TypeId } = this.props;
+
+    const { filteredCompanies } = this.state;
+    console.log(filteredCompanies)
     return (
       <div className="HexMap-container">
         <ul className={`${colOf6.hexGrid} hexGrid`}>
-          {this.state.filteredCompanies.length > 0
-            ? this.state.filteredCompanies.map(company => {
+          {filteredCompanies.length > 0
+            ? filteredCompanies.map(company => {
                 return (
                   <HexCard
                     CompanyName={company.CompanyName}
