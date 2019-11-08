@@ -29,9 +29,10 @@ class HexMap extends React.Component {
 
   componentDidMount() {
     const { ...props } = this.props;
-    console.log(props);
     if (props.TypeId) {
       this.getCompaniesByType(props.TypeId);
+    } else {
+      console.log(props.TypeId);
     }
   }
 
@@ -53,14 +54,16 @@ class HexMap extends React.Component {
     const { hexAmount, colSize, TypeId } = this.props;
 
     const { filteredCompanies } = this.state;
-    console.log(filteredCompanies)
+    const { ...props } = this.props;
     return (
       <div className="HexMap-container">
         <ul className={`${colOf6.hexGrid} hexGrid`}>
-          {filteredCompanies.length > 0
-            ? filteredCompanies.map(company => {
+          {filteredCompanies.length !== 0
+            ? filteredCompanies.map((company, index) => {
                 return (
                   <HexCard
+                    key={index}
+                    CompanyId={company.CompanyId}
                     CompanyName={company.CompanyName}
                     CompanyType={company.Type}
                     hexModuleCss={checkColSize(colSize)}
@@ -72,6 +75,8 @@ class HexMap extends React.Component {
                   while (hexAmount > index) {
                     return (
                       <HexCard
+                        key={index}
+                        CompanyId={company.CompanyId}
                         CompanyName={company.CompanyName}
                         CompanyType={company.Type}
                         hexModuleCss={checkColSize(colSize)}
@@ -81,6 +86,8 @@ class HexMap extends React.Component {
                 } else {
                   return (
                     <HexCard
+                      key={index}
+                      CompanyId={company.CompanyId}
                       CompanyName={company.CompanyName}
                       CompanyType={company.Type}
                       hexModuleCss={checkColSize(colSize)}

@@ -86,14 +86,14 @@ class App extends React.Component {
           />
 
           <Route
-            path="/companies/:id"
+            path={["/companies/:id", "/companies"]}
             render={props => {
               return <CompaniesPage CompanyData={CompanyData} {...props} />;
             }}
           />
 
           <Route
-            path="/company/:id"
+            path="/company/:id?"
             render={() => {
               return <CompanyDetails />;
             }}
