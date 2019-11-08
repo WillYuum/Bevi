@@ -14,7 +14,7 @@ class CompanyDetails extends React.Component {
     render() { 
         return ( 
             <div className = "CompanyDetails-container">
-
+                
             </div>
          );
     }
