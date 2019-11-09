@@ -1,11 +1,15 @@
 import React from "react";
 
-import "./NavBar.scss"
+import {ReactComponent as Logo} from "../../BeviLogo.svg";
+
+import "./NavBar.scss";
 
 const NavBar = () => {
   return (
     <nav className="NavBar-container">
-      <h1>LOGO</h1>
+      <div className="logo-container">
+        <Logo className="logo"/>
+      </div>
     </nav>
   );
 };

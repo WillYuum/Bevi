@@ -1,6 +1,14 @@
 .NavBar-container {
   width: 100%;
-  h1{
-      text-align: center;
+  height: 15vh;
+
+  .logo-container {
+    width: 25%;
+    height: 100%;
+    margin: 0 auto;
+    .logo {
+      width:100%;
+      height: 100%;
+    }
   }
 }
