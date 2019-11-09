@@ -1,6 +1,6 @@
 import React from "react";
 
-import {ReactComponent as Logo} from "../../BeviLogo.svg";
+import {ReactComponent as Logo} from "../../bevi_logo_b.svg";
 
 import "./NavBar.scss";
 
