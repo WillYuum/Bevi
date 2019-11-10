@@ -56,15 +56,19 @@ const initCompanyController = async () => {
       const {
         CompanyWebLink,
         CompanyDescription,
-        CompanyEmployeeSize
+        CompanyEmployeeSize,
+        ExtraInfo:{
+        Founded,
+        Specialties}
       } = params.AboutCompany;
-      if (!CompanyName && !CompanySmallInfo && !CompanyType) {
-        return;
-      }
       if (!params) {
         throw new Error("didn't recieve any company data");
       }
-      const stmt = `INSERT INTO Companies (CompanyName, CompanySmallInfo,  CompanyTypeId, CompanyWebLink, CompanyDescription, CompanyEmployeeSize) VALUES(?,?,?,?,?,?)`;
+      //remove the company that doesn't have these info
+      if (!CompanyName && !CompanySmallInfo && !CompanyType) {
+        return;
+      }
+      const stmt = `INSERT INTO Companies (CompanyName, CompanySmallInfo,  CompanyTypeId, CompanyWebLink, CompanyDescription, CompanyEmployeeSize, Founded, Specialities) VALUES(?,?,?,?,?,?,?,?)`;
       return new Promise((resolve, rejects) => {
         db.all(
           stmt,
@@ -74,7 +78,9 @@ const initCompanyController = async () => {
             CompanyType,
             CompanyWebLink,
             CompanyDescription,
-            CompanyEmployeeSize
+            CompanyEmployeeSize,
+            Founded,
+            Specialties,
           ],
           (err, result) => {
             if (err) {

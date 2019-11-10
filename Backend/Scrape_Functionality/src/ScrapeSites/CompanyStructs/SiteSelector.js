@@ -1,4 +1,4 @@
-// Header section of linkedIn company site
+// All Selectors in Header section of linkedIn company site
 export const headerSelectors = {
   CompanyLogo: "img.org-top-card-primary-content__logo",
   CompanyName: "h1.org-top-card-summary__title",
@@ -7,10 +7,14 @@ export const headerSelectors = {
   CompanyCity: "div.org-top-card-summary__headquarter"
 };
 
-//About section of linkedIn company site
+//All Selectors in About section of linkedIn company site
 export const aboutSelector = {
   CompanyDescription: "p.break-words",
   CompanyWebLink: "span.link-without-visited-state",
   CompanyEmployeeSize:
-    "dd.org-about-company-module__company-size-definition-text"
+    "dd.org-about-company-module__company-size-definition-text",
+  ExtraInfo: {
+    term: ".org-page-details__definition-term",
+    value: ".org-page-details__definition-text"
+  }
 };

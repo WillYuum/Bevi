@@ -19,7 +19,6 @@ const Main = async () => {
 
   const page = await loginToLinkinedin("https://www.linkedin.com/login");
   for (let i = 0; i < urls.length; i++) {
-    console.log(i);
     await ScrapeCompanySite(page, urls[i]);
   }
   console.log("finished scraping");
@@ -45,8 +44,9 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   const TypeId = await checkIfTypeExist(headerContent.CompanyType);
   headerContent.CompanyType = await TypeId;
 
-  await ScrapeCompanyLogo(page, headerContent.CompanyName);
-
+  // await ScrapeCompanyLogo(page, headerContent.CompanyName);
+  console.log(aboutdata)
+  //Saving CompantData to database
   await controller.createCompany({
     MainData: headerContent,
     AboutCompany: aboutdata
@@ -118,7 +118,7 @@ const ScrapeAboutUs = async (page, url) => {
   await page.goto(AboutUsUrl);
   console.log("we are in", AboutUsUrl);
 
-  return await page.evaluate(aboutSelector => {
+  const aboutData = await page.evaluate( aboutSelector => {
     const aboutData = {
       CompanyWebLink: "",
       CompanyDescription: "",
@@ -133,7 +133,37 @@ const ScrapeAboutUs = async (page, url) => {
         aboutData[key] = htmlContent.innerText;
       }
     }
+
     return aboutData;
+  }, aboutSelector);
+
+  
+  const receivedExtraInfo = await scrapeExtraInfo(page);
+
+  //adding extra info to the company about data
+  aboutData["ExtraInfo"] = receivedExtraInfo;
+  return aboutData
+};
+
+const scrapeExtraInfo = async page => {
+  return await page.evaluate(aboutSelector => {
+    const returnedStructure = {
+      Founded: "",
+      Specialties: ""
+    };
+    
+    const terms = document.querySelectorAll(`${aboutSelector.ExtraInfo.term}`);
+    const values = document.querySelectorAll(`${aboutSelector.ExtraInfo.value}`);
+
+    //locate terms with values needed in the about section
+    for (let i = 0; i < terms.length; i++) {
+      if (terms[i].innerText === "Founded") {
+        returnedStructure.Founded = values[i - 1].innerText;
+      } else if (terms[i].innerText === "Specialties") {
+        returnedStructure.Specialties = values[i - 1].innerText;
+      }
+    }
+    return returnedStructure;
   }, aboutSelector);
 };
 
