@@ -94,8 +94,8 @@ class App extends React.Component {
 
           <Route
             path="/company/:id?"
-            render={() => {
-              return <CompanyDetails />;
+            render={(props) => {
+              return <CompanyDetails {...props}/>;
             }}
           />
         </Switch>

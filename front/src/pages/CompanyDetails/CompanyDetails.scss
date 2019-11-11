@@ -1,0 +1,50 @@
+.CompanyDetails-container {
+  position: relative;
+  background-color: #e9ff8c;
+  width: 80vw;
+  margin: 100px auto;
+
+  .companyHeroImage {
+    width: 100%;
+    height: 250px;
+    background-color: gray;
+  }
+  .header {
+    padding: 15px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .CompanyPrimaryContent {
+      display: flex;
+      .LogoContainer{
+        position: absolute;
+        top:55%;
+        width:200px;
+        height: 200px;
+      }
+
+      .CompanyMainInfo{
+        margin-left: 200px;
+      }
+    }
+
+    .button-container {
+      background-color: #000;
+      width: 15%;
+      height: 40px;
+      text-align: center;
+      &:hover {
+        cursor: pointer;
+      }
+      .visitWebsite-btn {
+        color: #fffac6;
+        text-decoration: none;
+        p {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
