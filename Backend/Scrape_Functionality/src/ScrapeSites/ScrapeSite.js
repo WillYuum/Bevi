@@ -38,19 +38,20 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   await page.goto(url);
   console.log("we are in", url);
   const headerContent = await ScrapeHeader(page);
-  const aboutdata = await ScrapeAboutUs(page, url);
+  // const aboutdata = await ScrapeAboutUs(page, url);
 
   //changing the CompanyType to id so it can be identified as an Id in the database
-  const TypeId = await checkIfTypeExist(headerContent.CompanyType);
-  headerContent.CompanyType = await TypeId;
+  // const TypeId = await checkIfTypeExist(headerContent.CompanyType);
+  // headerContent.CompanyType = await TypeId;
 
   // await ScrapeCompanyLogo(page, headerContent.CompanyName);
-  console.log(aboutdata)
+  await ScrapeHeroImage(page, headerContent.CompanyName)
+
   //Saving CompantData to database
-  await controller.createCompany({
-    MainData: headerContent,
-    AboutCompany: aboutdata
-  });
+  // await controller.createCompany({
+  //   MainData: headerContent,
+  //   AboutCompany: aboutdata
+  // });
 };
 
 /**
@@ -61,7 +62,7 @@ const ScrapeCompanySite = async (page, companyUrl) => {
 const ScrapeCompanyLogo = async (page, companyName) => {
   console.log("Scraping Company Logo");
   const ifLogoExist = await page.evaluate(() => {
-    return document.querySelector("img.org-top-card-primary-content__logo");
+    return document.querySelector(`${headerSelectors.CompanyLogo}`);
   });
   if (ifLogoExist) {
     const Logo = await page.$(`${headerSelectors.CompanyLogo}`);
@@ -75,6 +76,19 @@ const ScrapeCompanyLogo = async (page, companyName) => {
     return;
   }
 };
+
+const ScrapeHeroImage = async(page, companyName) =>{
+  const ifHeroExist = await page.evaluate(()=>{
+    return document.querySelector("img #ember1315-target-image")
+  })
+ 
+    await ifHeroExist.screenshot({
+      path: "public/hero_Images/" + companyName + "_heroImage.png",
+      type: "png",
+      omitBackground: true
+    })
+ 
+}
 
 /**
  * @function ScrapeHeader Srcape the header part of company site

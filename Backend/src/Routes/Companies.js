@@ -17,6 +17,19 @@ const initCompaniesRoutes = async () => {
     }
   });
 
+  app.get("/company/:id", async(req,res,next)=>{
+    try{
+      const companyId = req.params.id;
+      const data = await controller.getCompanyById(companyId)
+      res.send({
+        success:true,
+        Company: data
+      })
+    }catch(err){
+      next(err)
+    }
+  })
+
   app.get("/companies/type/:id", async (req, res, next) => {
     try {
       const typeId = req.params.id;

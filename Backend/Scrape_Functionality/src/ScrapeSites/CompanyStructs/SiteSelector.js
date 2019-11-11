@@ -1,6 +1,7 @@
 // All Selectors in Header section of linkedIn company site
 export const headerSelectors = {
   CompanyLogo: "img.org-top-card-primary-content__logo",
+  CompanyHeroImage: ".company-hero-image-figure",
   CompanyName: "h1.org-top-card-summary__title",
   CompanyType: "div.org-top-card-summary__industry",
   CompanySmallInfo: "p.t-16",
