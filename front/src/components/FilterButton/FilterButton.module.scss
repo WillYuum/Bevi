@@ -1,4 +1,5 @@
 .hex {
+  user-select: none;
   position: relative;
   visibility: hidden;
   outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */

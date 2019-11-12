@@ -1,4 +1,5 @@
 .hex {
+  user-select: none;
   position: relative;
   visibility: hidden;
   outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
@@ -35,6 +36,8 @@
     -webkit-transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
     -ms-transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
     transform: skewY(-30deg) rotate3d(0, 0, 1, 60deg);
+    background-size: cover;
+    background-position: center;
   }
   &:hover {
     cursor: pointer;

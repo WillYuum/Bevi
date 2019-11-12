@@ -11,7 +11,6 @@ class CompanyDetails extends React.Component {
         super(props);
         this.state = {
             companyInfo: "",
-            name: "jimmy"
         }
     }
 
@@ -42,27 +41,36 @@ class CompanyDetails extends React.Component {
         }
     }
 
+
+
     render() {
         const { companyInfo } = this.state
-        console.log("here", companyInfo.CompanyName)
         return (
             <div className="CompanyDetails-container">
-                <div className="companyHeroImage"></div>
+                <div className="companyHeroImage" style={{
+                    backgroundImage: `url(\"http://localhost:3001/hero_Images/${
+                        `${companyInfo.CompanyName}_heroImage.png`
+                        }\")`
+                }} ></div>
                 <div className="header">
                     <div className="CompanyPrimaryContent">
                         <div className="LogoContainer">
-                            <HexCard CompanyName = {companyInfo.CompanyName}/>
+                            <HexCard CompanyName={companyInfo.CompanyName} />
                         </div>
                         <div className="CompanyMainInfo">
                             <h2>{companyInfo.CompanyName}</h2>
                             <h3>{companyInfo.Type}</h3>
                         </div>
                     </div>
-                    <div className="button-container">
-                        <a className="visitWebsite-btn" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer">
-                            <p>Visit Website</p>
-                        </a>
-                    </div>
+                    {
+                        companyInfo.CompanyWebLink ? <div className="button-container">
+                            <a className="visitWebsite-btn" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer">
+                                <p>Visit Website</p>
+                            </a>
+                        </div> :
+                            null
+                    }
+
                 </div>
             </div>
         );

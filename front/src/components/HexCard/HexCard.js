@@ -17,13 +17,17 @@ const HexCard = ({ CompanyId, CompanyName, CompanyType, hexModuleCss }) => {
     <li className={`${hexModuleCss} ${hexCard.hex} ${HexIntro.hex}`}>
       <Link to={`/company/${CompanyId}`}>
         <div className={hexCard.hexIn}>
-          <div className={hexCard.hexLink}>
-            <img
+          <div className={hexCard.hexLink} style={{
+            backgroundImage: `url(\"http://localhost:3001/companylogos/${
+              `${CompanyName}.png`
+              }\")`
+          }} >
+            {/* <img
               className={hexCard.img}
               src={`${Back_Url}/companylogos/${CompanyName}.png`}
               alt={`Company Logo of ${CompanyName}`}
               width="100px"
-            />
+            /> */}
             <h1>{CompanyName}</h1>
             <p>{CompanyType}</p>
           </div>
