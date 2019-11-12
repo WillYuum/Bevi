@@ -38,20 +38,20 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   await page.goto(url);
   console.log("we are in", url);
   const headerContent = await ScrapeHeader(page);
-  // const aboutdata = await ScrapeAboutUs(page, url);
+  const aboutdata = await ScrapeAboutUs(page, url);
 
   //changing the CompanyType to id so it can be identified as an Id in the database
-  // const TypeId = await checkIfTypeExist(headerContent.CompanyType);
-  // headerContent.CompanyType = await TypeId;
+  const TypeId = await checkIfTypeExist(headerContent.CompanyType);
+  headerContent.CompanyType = await TypeId;
 
   // await ScrapeCompanyLogo(page, headerContent.CompanyName);
-  await ScrapeHeroImage(page, headerContent.CompanyName)
+  // await ScrapeHeroImage(page, headerContent.CompanyName)
 
-  //Saving CompantData to database
-  // await controller.createCompany({
-  //   MainData: headerContent,
-  //   AboutCompany: aboutdata
-  // });
+  // Saving CompantData to database
+  await controller.createCompany({
+    MainData: headerContent,
+    AboutCompany: aboutdata
+  });
 };
 
 /**

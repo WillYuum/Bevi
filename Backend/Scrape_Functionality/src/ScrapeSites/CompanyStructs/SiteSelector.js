@@ -10,8 +10,8 @@ export const headerSelectors = {
 
 //All Selectors in About section of linkedIn company site
 export const aboutSelector = {
+  CompanyWebLink: ".org-grid__core-rail--wide span.link-without-visited-state",
   CompanyDescription: "p.break-words",
-  CompanyWebLink: "span.link-without-visited-state",
   CompanyEmployeeSize:
     "dd.org-about-company-module__company-size-definition-text",
   ExtraInfo: {

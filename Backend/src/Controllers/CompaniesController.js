@@ -51,18 +51,18 @@ const initCompanyController = async () => {
    * @param {int} id company Id
    * @returns {object} return compant data with the specific id
    */
-  const getCompanyById = async (id) =>{
-    try{
+  const getCompanyById = async (id) => {
+    try {
       const stmt = `SELECT * FROM Companies JOIN Types ON Companies.CompanytypeId = Types.TypeId WHERE CompanyId = ${id}`;
-      return new Promise((resolve, rejects)=>{
-        db.all(stmt, [], (err,result)=>{
-          if(err){
+      return new Promise((resolve, rejects) => {
+        db.all(stmt, [], (err, result) => {
+          if (err) {
             rejects(err)
           }
           resolve(result)
         })
       })
-    }catch(err){
+    } catch (err) {
       throw new Error(`Getting company id = ${id} failed with = ${err}`)
     }
   }
@@ -78,9 +78,9 @@ const initCompanyController = async () => {
         CompanyWebLink,
         CompanyDescription,
         CompanyEmployeeSize,
-        ExtraInfo:{
-        Founded,
-        Specialties}
+        ExtraInfo: {
+          Founded,
+          Specialties }
       } = params.AboutCompany;
       if (!params) {
         throw new Error("didn't recieve any company data");
