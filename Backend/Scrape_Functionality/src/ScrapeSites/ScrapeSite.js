@@ -39,19 +39,19 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   console.log("we are in", url);
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
-
-  //changing the CompanyType to id so it can be identified as an Id in the database
-  const TypeId = await checkIfTypeExist(headerContent.CompanyType);
-  headerContent.CompanyType = await TypeId;
-
+  
+  // //changing the CompanyType to id so it can be identified as an Id in the database
+  // const TypeId = await checkIfTypeExist(headerContent.CompanyType);
+  // headerContent.CompanyType = await TypeId;
+  
   // await ScrapeCompanyLogo(page, headerContent.CompanyName);
-  // await ScrapeHeroImage(page, headerContent.CompanyName)
+  await ScrapeHeroImage(page, headerContent.CompanyName);
 
   // Saving CompantData to database
-  await controller.createCompany({
-    MainData: headerContent,
-    AboutCompany: aboutdata
-  });
+  // await controller.createCompany({
+  //   MainData: headerContent,
+  //   AboutCompany: aboutdata
+  // });
 };
 
 /**
@@ -61,9 +61,9 @@ const ScrapeCompanySite = async (page, companyUrl) => {
  */
 const ScrapeCompanyLogo = async (page, companyName) => {
   console.log("Scraping Company Logo");
-  const ifLogoExist = await page.evaluate(() => {
+  const ifLogoExist = await page.evaluate((headerSelectors) => {
     return document.querySelector(`${headerSelectors.CompanyLogo}`);
-  });
+  }, headerSelectors);
   if (ifLogoExist) {
     const Logo = await page.$(`${headerSelectors.CompanyLogo}`);
     await Logo.screenshot({
@@ -77,17 +77,31 @@ const ScrapeCompanyLogo = async (page, companyName) => {
   }
 };
 
-const ScrapeHeroImage = async(page, companyName) =>{
-  const ifHeroExist = await page.evaluate(()=>{
-    return document.querySelector("img #ember1315-target-image")
+const ScrapeHeroImage = async (page, companyName) => {
+  const HeroNode = await page.evaluate(() => {
+    const HeroExist = document.querySelector("img.pic-cropper__target-image")
+    console.log("hi", HeroExist)
+    if (HeroExist) {
+      return HeroExist.getAttribute("src");
+    } else {
+      return null;
+    }
   })
- 
-    await ifHeroExist.screenshot({
+
+  if (HeroNode !== null) {
+    console.log("HERO NODE",HeroNode)
+    await page.goto(HeroNode);
+    console.log("saving hero image")
+    const image = await page.$("img");
+    await image.screenshot({
       path: "public/hero_Images/" + companyName + "_heroImage.png",
       type: "png",
       omitBackground: true
     })
- 
+  } else {
+    console.log("NEXT!!!")
+    return;
+  }
 }
 
 /**
@@ -132,7 +146,7 @@ const ScrapeAboutUs = async (page, url) => {
   await page.goto(AboutUsUrl);
   console.log("we are in", AboutUsUrl);
 
-  const aboutData = await page.evaluate( aboutSelector => {
+  const aboutData = await page.evaluate(aboutSelector => {
     const aboutData = {
       CompanyWebLink: "",
       CompanyDescription: "",
@@ -151,7 +165,7 @@ const ScrapeAboutUs = async (page, url) => {
     return aboutData;
   }, aboutSelector);
 
-  
+
   const receivedExtraInfo = await scrapeExtraInfo(page);
 
   //adding extra info to the company about data
@@ -165,7 +179,7 @@ const scrapeExtraInfo = async page => {
       Founded: "",
       Specialties: ""
     };
-    
+
     const terms = document.querySelectorAll(`${aboutSelector.ExtraInfo.term}`);
     const values = document.querySelectorAll(`${aboutSelector.ExtraInfo.value}`);
 
