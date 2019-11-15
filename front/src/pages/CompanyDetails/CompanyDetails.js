@@ -46,85 +46,45 @@ class CompanyDetails extends React.Component {
         console.log(companyInfo.CompanyDescription)
         return (
             <div className="CompanyDetails-container">
-                <div className="companyHeroImage" style={{
-                    backgroundImage: `url("http://localhost:3001/hero_Images/${
-                        `${companyInfo.CompanyName}_heroImage.png`
-                        }")`
-                }}>
-                    <div className="LogoContainer">
-                        <HexCard CompanyName={companyInfo.CompanyName} />
-                    </div>
-                </div>
                 <div className="content">
-                    <div className="CompanyIntro-container">
-                        <div className="CompanyIntro-left">
-                            <div className="companyMainInfo">
-                                <h2>{companyInfo.CompanyName}</h2>
-                                <h3>{companyInfo.Type}</h3>
+                    <div className="company-Info">
+
+
+                        <div className="companyMainInfo">
+                            <div className="info-left">
+                                <div className="LogoContainer">
+                                    <HexCard CompanyName={companyInfo.CompanyName} />
+                                </div>
+                                <div className="companyInfo-titles">
+                                    <h1>{companyInfo.CompanyName}</h1>
+                                    <h2>{companyInfo.Type}</h2>
+                                </div>
+                            </div>
+                            {
+                                companyInfo.CompanyWebLink ?
+                                    <a className="button-container" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer" >
+                                        <span className="text-btn">
+                                            Visit Website
+                            </span>
+                                    </a>
+                                    :
+                                    null
+                            }
+
+                        </div>
+
+                        <div className="companySliderInfo-container">
+                            <div className="button-slider">
+
+                            </div>
+                            <div className="slider-container">
+
                             </div>
                         </div>
-                        {/* <div className="CompanyIntro-right"> */}
-                        {
-                            companyInfo.CompanyWebLink ?
-                                <a className="button-container" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer" >
-                                    <span className="text-btn">
-                                        Visit Website
-                            </span>
-                                </a>
-                                :
-                                null
-                        }
-                        {/* </div> */}
-                    </div>
-                    <div className="bodyContent">
-                        {
-                            companyInfo.CompanySmallInfo ?
-                                <div className="briefInfo bodyInfoContainer">
-                                    <h4>Brief Intro</h4>
-                                    <p>{companyInfo.CompanySmallInfo}</p>
-                                </div>
-                                :
-                                null
-                        }
-                        <div className="companyDescription bodyInfoContainer">
-                            <h4>Company Descriptiom</h4>
-                            <p>{companyInfo.CompanyDescription}</p>
-                        </div>
-                    </div>
-                    <div className="footerContent">
-                        <div className="additionalInfo-container">
-                            <ul className="list-conatiner">
-                                {
-                                    companyInfo.CompanyEmployeeSize ?
-                                        <li>
-                                            Employee Size:<span>{companyInfo.CompanyEmployeeSize}</span>
-                                        </li>
-                                        :
-                                        null
-                                }
-                                {
-                                    companyInfo.Founded ?
-                                        <li>
-                                            Founded:<span>{companyInfo.Founded}</span>
-                                        </li>
-                                        :
-                                        null
-                                }
-                                {
-                                    companyInfo.Specialities ?
-                                        <li>
-                                            Specialities:<span>{companyInfo.Specialities}</span>
-                                        </li>
-                                        :
-                                        null
-                                }
-                            </ul>
-                        </div>
-                        <div className="companyPost">
-                            {
 
-                            }
-                        </div>
+                    </div>
+                    <div className="related-companies">
+
                     </div>
                 </div>
             </div>
@@ -132,3 +92,83 @@ class CompanyDetails extends React.Component {
     }
 }
 export default CompanyDetails;
+
+// <div className="companyHeroImage" style={{
+//                     backgroundImage: `url("http://localhost:3001/hero_Images/${
+//                         `${companyInfo.CompanyName}_heroImage.png`
+//                         }")`
+//                 }}>
+//                     <div className="LogoContainer">
+//                         <HexCard CompanyName={companyInfo.CompanyName} />
+//                     </div>
+//                 </div>
+//                 <div className="content">
+//                     <div className="CompanyIntro-container">
+//                         <div className="CompanyIntro-left">
+//                             <div className="companyMainInfo">
+//                                 <h1>{companyInfo.CompanyName}</h1>
+//                                 <h2>{companyInfo.Type}</h2>
+//                             </div>
+//                         </div>
+//                         {
+//                             companyInfo.CompanyWebLink ?
+//                                 <a className="button-container" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer" >
+//                                     <span className="text-btn">
+//                                         Visit Website
+//                             </span>
+//                                 </a>
+//                                 :
+//                                 null
+//                         }
+//                     </div>
+//                     <div className="bodyContent">
+//                         <div className="additionalInfo-container">
+//                             <ul className="list-conatiner">
+//                                 {
+//                                     companyInfo.CompanyEmployeeSize ?
+//                                         <li>
+//                                             <h3>Employee Size</h3><span>{companyInfo.CompanyEmployeeSize}</span>
+//                                         </li>
+//                                         :
+//                                         null
+//                                 }
+//                                 {
+//                                     companyInfo.Founded ?
+//                                         <li>
+//                                             <h3>Founded</h3><span>{companyInfo.Founded}</span>
+//                                         </li>
+//                                         :
+//                                         null
+//                                 }
+//                                 {
+//                                     companyInfo.Specialities ?
+//                                         <li>
+//                                             <h3>Specialities</h3><span>{companyInfo.Specialities}</span>
+//                                         </li>
+//                                         :
+//                                         null
+//                                 }
+//                                 {
+//                                     companyInfo.CompanySmallInfo ?
+//                                         <li>
+//                                             <h3>Brief Intro</h3><span>{companyInfo.CompanySmallInfo}</span>
+//                                         </li>
+//                                         :
+//                                         null
+//                                 }
+//                             </ul>
+//                         </div>
+//                     </div>
+//                     <div className="description-container">
+//                         <div className="companyDescription bodyInfoContainer">
+//                             <h3>Company Descriptiom</h3>
+//                             <p>{companyInfo.CompanyDescription}</p>
+//                         </div>
+
+//                         <div className="companyPost">
+//                             {
+
+//                             }
+//                         </div>
+//                     </div>
+//                 </div>

@@ -16,6 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       CompanyData: [],
       CompanyTypes: [],
       TypeData: ""
@@ -95,7 +96,7 @@ class App extends React.Component {
           <Route
             path="/company/:id?"
             render={(props) => {
-              return <CompanyDetails {...props}/>;
+              return <CompanyDetails {...props} />;
             }}
           />
         </Switch>

@@ -4,6 +4,9 @@
   box-sizing: border-box;
   // font-family: "Metrophobic", sans-serif;
   font-family: "Tienne", serif;
+  &::selection {
+    background-color: #ffd816;
+  }
 }
 
 body {
