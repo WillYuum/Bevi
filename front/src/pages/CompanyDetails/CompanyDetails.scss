@@ -1,56 +1,111 @@
 .CompanyDetails-container {
   position: relative;
   background-color: #e9ff8c;
-  width: 80vw;
-  margin: 100px auto;
+  width: 75vw;
+  margin: 120px auto;
 
   .companyHeroImage {
+    position: relative;
     width: 100%;
-    height: 250px;
-    // background-color: gray;
+    height: 400px;
+    background-color: gray; 
     background-size: cover;
     background-position: center;
+    .LogoContainer {
+      position: absolute;
+      bottom: 5%;
+      width: 200px;
+      height: 200px;
+    }
   }
-  .header {
-    padding: 15px;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    .CompanyPrimaryContent {
+  .content {
+    padding: 20px;
+    .CompanyIntro-container {
+      width: 100%;
       display: flex;
-      .LogoContainer {
-        position: absolute;
-        top: 55%;
-        width: 200px;
-        height: 200px;
-      }
-
-      .CompanyMainInfo {
-        margin-left: 210px;
-        h2 {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .CompanyIntro-left {
+        width: 65%;
+        display: flex;
+        flex-wrap: wrap;
+        .companyMainInfo {
+          width: 50%;
+          h3 {
+            font-size: 1em;
+            color: #4a4a4a;
+          }
         }
-        h3 {
-          font-size: 1em;
-          color: #4a4a4a;
+      }
+      // .CompanyIntro-right {
+      //   width: 35%;
+        .button-container {
+          background-color: #000;
+          display: inline-block;
+          width: 150px;
+          height: 30px;
+          text-align: center;
+          .text-btn {
+            color: #fffac6;
+            text-decoration: none;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      // }
+    }
+    .bodyContent {
+      margin-top: 55px;
+
+      .bodyInfoContainer {
+        margin-bottom: 55px;
+
+        h4 {
+          margin-bottom: 25px;
+        }
+        p {
+          white-space: pre-line;
         }
       }
     }
 
-    .button-container {
-      background-color: #000;
-      width: 15%;
-      height: 40px;
-      text-align: center;
-      &:hover {
-        cursor: pointer;
+    .footerContent {
+      width: 100%;
+      .additionalInfo-container {
+        width: 50%;
+        .list-conatiner {
+          list-style: none;
+          li {
+            margin-bottom: 10px;
+            span {
+              display: block;
+              margin-left: 30px;
+              color: #4a4a4a;
+            }
+          }
+        }
       }
-      .visitWebsite-btn {
-        color: #fffac6;
-        text-decoration: none;
-        p {
-          display: inline-block;
-          vertical-align: middle;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .CompanyDetails-container {
+    width: 100%;
+    .CompanyIntro-container {
+      .CompanyIntro-left {
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        .companyMainInfo {
+          text-align: center;
+        }
+      }
+      .CompanyIntro-right {
+        width: 100%;
+        text-align: center;
+        .button-container {
+          margin: 0 auto;
         }
       }
     }

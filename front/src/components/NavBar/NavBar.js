@@ -1,15 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import {ReactComponent as Logo} from "../../bevi_logo_b.svg";
+//Importing Logo as component
+import { ReactComponent as Logo } from "../../bevi_logo_b.svg";
 
 import "./NavBar.scss";
 
 const NavBar = () => {
   return (
     <nav className="NavBar-container">
-      <div className="logo-container">
-        <Logo className="logo"/>
-      </div>
+      <Link to="/companies">
+        <div className="logo-container">
+          <Logo className="logo" />
+        </div>
+      </Link>
     </nav>
   );
 };
