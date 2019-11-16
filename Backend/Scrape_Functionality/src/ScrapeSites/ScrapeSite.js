@@ -3,6 +3,7 @@ import loginToLinkinedin from "../publicFuncs/loginFunc.js";
 import initCompanyController from "../../../src/Controllers/CompaniesController.js";
 import checkIfTypeExist from "./checkTypeExist.js";
 import { closeBrowser } from "../publicFuncs/broswerFunc.js";
+import checkIfCompanyTech from "./CheckCompaynType.js";
 
 // Linkedin companySite selectors that is needed for this project
 import {
@@ -39,19 +40,23 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   console.log("we are in", url);
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
-  
-  // //changing the CompanyType to id so it can be identified as an Id in the database
-  // const TypeId = await checkIfTypeExist(headerContent.CompanyType);
-  // headerContent.CompanyType = await TypeId;
-  
-  // await ScrapeCompanyLogo(page, headerContent.CompanyName);
-  await ScrapeHeroImage(page, headerContent.CompanyName);
 
-  // Saving CompantData to database
-  // await controller.createCompany({
-  //   MainData: headerContent,
-  //   AboutCompany: aboutdata
-  // });
+  if (checkIfCompanyTech(headerContent.CompanyType)) {
+    // //changing the CompanyType to id so it can be identified as an Id in the database
+    const TypeId = await checkIfTypeExist(headerContent.CompanyType);
+    headerContent.CompanyType = await TypeId;
+
+    // await ScrapeCompanyLogo(page, headerContent.CompanyName);
+    await ScrapeHeroImage(page, headerContent.CompanyName);
+
+    // Saving CompantData to database
+    await controller.createCompany({
+      MainData: headerContent,
+      AboutCompany: aboutdata
+    });
+  } else {
+    return;
+  }
 };
 
 /**
@@ -89,7 +94,7 @@ const ScrapeHeroImage = async (page, companyName) => {
   })
 
   if (HeroNode !== null) {
-    console.log("HERO NODE",HeroNode)
+    console.log("HERO NODE", HeroNode)
     await page.goto(HeroNode);
     console.log("saving hero image")
     const image = await page.$("img");

@@ -3,9 +3,12 @@ import { closeBrowser } from "../publicFuncs/broswerFunc.js";
 
 const fs = require("fs");
 
-const url =
-  "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL";
+  const urls = [
+    "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
+    
+  ]
 
+  
 //public variable to use in |recursiveScrappe| function
 let maxpage = 0;
 
@@ -15,10 +18,12 @@ let maxpage = 0;
 const Main = async () => {
   try {
     const page = await loginToLinkinedin("https://www.linkedin.com/login");
-    await page.goto(url);
-    maxpage = await getMaxPage(page);
-    const AllCompanyUrl = await recursiveScrappe(page, url, 1, maxpage, []);
-    return writeToJson(AllCompanyUrl);
+    for (let i = 0; i < urls.length; i++) {
+      await page.goto(urls[i]);
+      maxpage = await getMaxPage(page);
+      const AllCompanyUrl = await recursiveScrappe(page, url, 1, maxpage, []);
+      return writeToJson(AllCompanyUrl);
+    }
   } catch (err) {
     console.log(`Fetching Main failed with = ${err}`);
   }
