@@ -3,12 +3,16 @@ import { closeBrowser } from "../publicFuncs/broswerFunc.js";
 
 const fs = require("fs");
 
-  const urls = [
-    "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
-    
-  ]
+const urls = [
+  "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
+  "https://www.linkedin.com/search/results/companies/?keywords=%20%20%20%20%20Information%20Technology%20%26%20Services%20%2C%20Beirut&origin=SWITCH_SEARCH_VERTICAL",
+  "https://www.linkedin.com/search/results/companies/?keywords=Internet%2C%20Beirut&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=mobile%20%2C%20lebanon&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=development%2C%20Beirut&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=Web%20development%2C%20Lebanon&origin=SWITCH_SEARCH_VERTICAL"
+]
 
-  
+
 //public variable to use in |recursiveScrappe| function
 let maxpage = 0;
 
@@ -18,18 +22,21 @@ let maxpage = 0;
 const Main = async () => {
   try {
     const page = await loginToLinkinedin("https://www.linkedin.com/login");
+
+    const allData = [];
+
     for (let i = 0; i < urls.length; i++) {
       await page.goto(urls[i]);
       maxpage = await getMaxPage(page);
-      const AllCompanyUrl = await recursiveScrappe(page, url, 1, maxpage, []);
-      return writeToJson(AllCompanyUrl);
+      const AllCompanyUrl = await recursiveScrappe(page, urls[i], 1, maxpage, []);
+      allData.push(AllCompanyUrl)
     }
+    writeToJson(allData);
   } catch (err) {
     console.log(`Fetching Main failed with = ${err}`);
   }
   console.log("Finished scraping company urls");
   closeBrowser();
-  return;
 };
 
 /**

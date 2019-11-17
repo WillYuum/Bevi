@@ -3,7 +3,7 @@ import loginToLinkinedin from "../publicFuncs/loginFunc.js";
 import initCompanyController from "../../../src/Controllers/CompaniesController.js";
 import checkIfTypeExist from "./checkTypeExist.js";
 import { closeBrowser } from "../publicFuncs/broswerFunc.js";
-import checkIfCompanyTech from "./CheckCompaynType.js";
+import { checkIfCompanyTech } from "./CheckIfCompanyTech.js";
 
 // Linkedin companySite selectors that is needed for this project
 import {
@@ -15,8 +15,17 @@ import {
  * @function Main - Scraping linkedIn Company Site happens Here
  */
 const Main = async () => {
-  const CompanyUrls = fs.readFileSync("CompanyUrls.json");
+  const CompanyUrls = fs.readFileSync("NewUrls.json");
   const urls = await JSON.parse(CompanyUrls);
+
+  //!THIS IS TO REMOVE DUPLICATES AND SHOULD BE ADDED TO URL SCRAPING FUNCTIONALITY
+  // const newUrls = urls.reduce((uniqueUrl, url) => {
+  //   return uniqueUrl.includes(url) ? uniqueUrl : [...uniqueUrl, url]
+  // }, [])
+
+  // console.log("The new Url", newUrls)
+  // fs.writeFileSync("NewUrls.json", JSON.stringify(newUrls))
+
 
   const page = await loginToLinkinedin("https://www.linkedin.com/login");
   for (let i = 0; i < urls.length; i++) {
@@ -41,13 +50,15 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
 
+  console.log(checkIfCompanyTech(headerContent.CompanyType));
   if (checkIfCompanyTech(headerContent.CompanyType)) {
+
     // //changing the CompanyType to id so it can be identified as an Id in the database
     const TypeId = await checkIfTypeExist(headerContent.CompanyType);
     headerContent.CompanyType = await TypeId;
 
     // await ScrapeCompanyLogo(page, headerContent.CompanyName);
-    await ScrapeHeroImage(page, headerContent.CompanyName);
+    // await ScrapeHeroImage(page, headerContent.CompanyName);
 
     // Saving CompantData to database
     await controller.createCompany({
@@ -199,5 +210,4 @@ const scrapeExtraInfo = async page => {
     return returnedStructure;
   }, aboutSelector);
 };
-
 Main();
