@@ -1,4 +1,5 @@
 import React from 'react';
+import { shuffleCompanies } from "../../utils/shuffleCompanies.js"
 
 //----------------IMPORT COMPONENTS------------------
 import HexCard from "../../components/HexCard/HexCard.js";
@@ -32,6 +33,14 @@ class CompanyDetails extends React.Component {
         await this.getRelatedCompaniesById(relatedTypeId)
     }
 
+    async componentWillReceiveProps(newProps) {
+       
+        const id = newProps.match.params.id;
+        await this.getCompanyById(id)
+
+        const relatedTypeId = this.state.companyInfo.CompanytypeId;
+        await this.getRelatedCompaniesById(relatedTypeId)
+    }
     /**
      * @function getCompanyById get the company info 
      * @param {int} id
@@ -53,7 +62,10 @@ class CompanyDetails extends React.Component {
             throw new Error(`fetching company with id = ${id} failed with = ${err} `)
         }
     }
-
+    /**
+     * @function getRelatedCompaniesById - get companies depending the id recieved in companyDetails
+     * @param {int} id
+     */
     getRelatedCompaniesById = async (id) => {
         try {
             const req = await fetch(`${this.Back_Url}/companies/type/${id}`, {
@@ -65,7 +77,8 @@ class CompanyDetails extends React.Component {
             })
 
             const result = await req.json();
-            this.setState({ relatedCompanies: result.Companies })
+            const shuffledRelatedCompanies = await shuffleCompanies(result.Companies)
+            this.setState({ relatedCompanies: shuffledRelatedCompanies })
         } catch (err) {
             throw new Error(`Getting related companies failed with = ${err}`)
         }
@@ -73,7 +86,14 @@ class CompanyDetails extends React.Component {
 
     render() {
         const { companyInfo, relatedCompanies } = this.state
-        console.log(companyInfo.CompanyDescription)
+
+        // data to be sent to CompanyInfoSlider component
+        const SliderData = {
+            Description: companyInfo.CompanyDescription,
+            EmployeeSize: companyInfo.CompanyEmployeeSize,
+            Founded: companyInfo.Founded,
+            Specialties: companyInfo.Specialities
+        }
         return (
             <div className="CompanyDetails-container">
                 <div className="content">
@@ -104,13 +124,16 @@ class CompanyDetails extends React.Component {
                         </div>
 
                         <div className="companySliderInfo-container">
-                            <CompanyInfoSlider CompanyInfo={companyInfo.CompanyDescription} />
+                            <CompanyInfoSlider sliderData={SliderData} />
                         </div>
+                    </div>
 
-                    </div>
+
                     <div className="related-companies">
-                        <HexMap CompanyData={relatedCompanies} hexAmount="10" colSize="2"/>
+                        <HexMap CompanyData={relatedCompanies} hexAmount="10" colSize="2" />
                     </div>
+
+
                 </div>
             </div>
         );

@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 /**
- * @prop {object} CompanyInfo
+ * @prop {object} sliderData
  */
 class CompanyInfoSlider extends React.Component {
     constructor(props) {
@@ -20,28 +20,36 @@ class CompanyInfoSlider extends React.Component {
 
     //render companyDescription
     companyDescription = () => {
-        const { CompanyInfo } = this.props
+        const { sliderData } = this.props
         return (
             <div className="companyDescription-container">
-                <p>{CompanyInfo}</p>
+                <p>{sliderData.Description}</p>
             </div>
         )
     }
     //render companyDetails
     companyDetails = () => {
+        const { sliderData } = this.props
+
         return (
-            <div>
-                <ul>
-                    <li>Employee Size</li>
-                    <li>Founded</li>
-                    <li></li>
-                    <li></li>
+            <div className="companyDetails-container">
+                <ul className="list-container">
+
+                    {sliderData.EmployeeSize ? <li> <p>Employee Size</p> <span>{sliderData.EmployeeSize}</span></li> : null}
+                    {sliderData.Founded ? <li> <p> Founded </p><span>{sliderData.Founded}</span></li> : null}
+                    {sliderData.Specialties ? <li> <p>Specialties </p> <span>{sliderData.Specialties}</span></li> : null}
+
                 </ul>
-            </div>
+            </div >
         )
     }
 
+    clickHandler = (index) => {
+        this.setState({ clickIndex: index })
+    }
+
     render() {
+
         const SliderSettings = {
             dots: false,
             infinite: false,
@@ -51,23 +59,17 @@ class CompanyInfoSlider extends React.Component {
             slidesToScroll: 1,
             beforeChange: (current, next) => this.setState({ slideIndex: next })
         }
+        const indices = [{ index: 0, btnText: "Company Details" }, { index: 1, btnText: "Company Description" }];
         return (
-
             <div className="slider-container">
                 <div className="btnArea-container">
-                    <ul className="btns-container">
-                        <li>
-                            <div className="btn-container" onClick={() => { this.slider.slickGoTo(0) }}>
-                                <p>CompanyDetails</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="btn-container" onClick={() => { this.slider.slickGoTo(1) }}>
-                                <p>Company Description</p>
-                            </div>
-                        </li>
-                    </ul>
+                    {
+                        indices.map((btnIfno, i) => {
+                            return <Buttons key={i} btntext={btnIfno.btnText} clicked={i === this.state.slideIndex} onClick={() => { this.slider.slickGoTo(btnIfno.index) }} />
+                        })
+                    }
                 </div>
+
 
                 <Slider ref={slider => (this.slider = slider)} {...SliderSettings}>
                     {
@@ -81,5 +83,18 @@ class CompanyInfoSlider extends React.Component {
         );
     }
 }
+
+/**
+ * @param {object} props
+ */
+const Buttons = (props) => {
+    return (
+        <div className={`btn1 btn-container ${props.clicked ? "active" : "notActive"}`}
+            onClick={props.onClick} >
+            <p>{props.btntext}</p>
+        </div>
+    )
+}
+
 
 export default CompanyInfoSlider;

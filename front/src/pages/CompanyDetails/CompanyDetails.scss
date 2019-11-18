@@ -3,7 +3,7 @@
     display: flex;
     height: 82vh;
     .company-Info {
-      width: 80%;
+      width: 75%;
       padding: 20px;
 
       .LogoContainer {
@@ -57,7 +57,8 @@
 
     .related-companies {
       width: 20%;
-      background-color: green;
+      height: auto;
+      margin: auto;
     }
   }
 }
