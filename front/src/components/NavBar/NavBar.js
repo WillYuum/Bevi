@@ -9,11 +9,11 @@ import "./NavBar.scss";
 const NavBar = () => {
   return (
     <nav className="NavBar-container">
-      <Link to="/companies">
-        <div className="logo-container">
+      <div className="logo-container">
+        <Link to="/companies">
           <Logo className="logo" />
-        </div>
-      </Link>
+        </Link>
+      </div>
     </nav>
   );
 };

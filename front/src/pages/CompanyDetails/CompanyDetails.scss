@@ -32,15 +32,15 @@
 
         .button-container {
           background-color: #000;
-          display: inline-block;
+          display: table;
           margin: 50px 20px;
           width: 150px;
-          height: 30px;
+          height: 35px;
+          text-decoration: none;
           text-align: center;
           .text-btn {
             color: #fffac6;
-            text-decoration: none;
-            display: inline-block;
+            display: table-cell;
             vertical-align: middle;
           }
 
