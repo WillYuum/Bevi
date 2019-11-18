@@ -15,6 +15,7 @@ import colOf6 from "../../public styles/colOf6.module.scss";
  * @prop {array} CompanyData - array of data
  * @prop {string} TypeId - it could empty or one of the type in the database
  * @prop {int} hexAmount - the amount of companies to mapped
+ * @prop {int} colSize - The amount of hex/column
  */
 class HexMap extends React.Component {
   constructor(props) {
