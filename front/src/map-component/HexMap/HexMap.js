@@ -33,13 +33,12 @@ class HexMap extends React.Component {
     if (props.TypeId) {
       this.getCompaniesByType(props.TypeId);
     } else {
-      console.log(props.TypeId);
+      return;
     }
   }
 
   getCompaniesByType = async id => {
     try {
-      console.log(id);
       const req = await fetch(`${this.Back_Url}/companies/type/${id}`);
       const res = await req.json();
       this.setState({ filteredCompanies: res.Companies });

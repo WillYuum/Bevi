@@ -19,6 +19,7 @@ class CompaniesPage extends React.Component {
     return (
       <div className="CompaniesPage-container">
         <div className="FilterSection"></div>
+        <p className="amountOfCompanies">Companies Collected: <span>{CompanyData.length}</span></p>
         <div className="CompaniesSection">
           <HexMap
             CompanyData={CompanyData}

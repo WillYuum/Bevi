@@ -31,7 +31,6 @@ class FilterButtonMap extends React.Component {
 
     //Conditional props
     const { FilterButtonAmount, colSize } = this.props;
-    console.log(CompanyTypes);
     return (
       <div className="FilterMap-container">
         <ul className={`${colOf3.hexGrid} hexGrid`}>

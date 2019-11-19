@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Route, Switch, withRouter } from "react-router-dom";
+import { AnimatedSwitch } from 'react-router-transition';
 import { shuffleCompanies } from "./utils/shuffleCompanies";
 
 //----------------IMPORT COMPONENTS------------------
@@ -72,7 +73,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <NavBar />
-        <Switch>
+        <AnimatedSwitch atEnter={{ opacity: 0 }}
+          atLeave={{ opacity: 0 }}
+          atActive={{ opacity: 1 }}
+          className="switch-wrapper">
           <Route
             path="/"
             exact={true}
@@ -99,7 +103,7 @@ class App extends React.Component {
               return <CompanyDetails {...props} />;
             }}
           />
-        </Switch>
+        </AnimatedSwitch>
       </div>
     );
   }

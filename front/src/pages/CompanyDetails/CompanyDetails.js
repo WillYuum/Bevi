@@ -4,11 +4,10 @@ import { shuffleCompanies } from "../../utils/shuffleCompanies.js"
 //----------------IMPORT COMPONENTS------------------
 import HexCard from "../../components/HexCard/HexCard.js";
 import CompanyInfoSlider from "../../components/CompanyInfoSlider/CompanyInfoSlider.js";
-import hexMap from "../../map-component/HexMap/HexMap.js"
+import HexMap from '../../map-component/HexMap/HexMap.js';
 //----------------IMPORT COMPONENTS------------------
 
-import "./CompanyDetails.scss"
-import HexMap from '../../map-component/HexMap/HexMap.js';
+import "./CompanyDetails.scss";
 
 
 
@@ -34,7 +33,7 @@ class CompanyDetails extends React.Component {
     }
 
     async componentWillReceiveProps(newProps) {
-       
+
         const id = newProps.match.params.id;
         await this.getCompanyById(id)
 
@@ -57,7 +56,6 @@ class CompanyDetails extends React.Component {
 
             const result = await req.json();
             this.setState({ companyInfo: result.Company[0] })
-            console.log(this.state.companyInfo)
         } catch (err) {
             throw new Error(`fetching company with id = ${id} failed with = ${err} `)
         }
@@ -87,53 +85,59 @@ class CompanyDetails extends React.Component {
     render() {
         const { companyInfo, relatedCompanies } = this.state
 
-        // data to be sent to CompanyInfoSlider component
-        const SliderData = {
-            Description: companyInfo.CompanyDescription,
-            EmployeeSize: companyInfo.CompanyEmployeeSize,
-            Founded: companyInfo.Founded,
-            Specialties: companyInfo.Specialities
-        }
         return (
             <div className="CompanyDetails-container">
-                <div className="content">
-                    <div className="company-Info">
+                <div className="leftInfo">
 
 
-                        <div className="companyMainInfo">
-                            <div className="info-left">
-                                <div className="LogoContainer">
-                                    <HexCard CompanyName={companyInfo.CompanyName} />
-                                </div>
-                                <div className="companyInfo-titles">
-                                    <h1>{companyInfo.CompanyName}</h1>
-                                    <h2>{companyInfo.Type}</h2>
-                                </div>
-                            </div>
-                            {
-                                companyInfo.CompanyWebLink ?
-                                    <a className="button-container" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer" >
-                                        <span className="text-btn">
-                                            Visit Website
+                    <div className="TopInfo-container">
+                        <div className="logoContainer">
+                            <HexCard CompanyName={companyInfo.CompanyName} />
+                        </div>
+                        <div className="companyTitles">
+                            <h1>{companyInfo.CompanyName}</h1>
+                            <h2>{companyInfo.Type}</h2>
+                        </div>
+                    </div>
+
+
+                    <div className="companyDetails">
+                        <h3>Company Details</h3>
+                        <ul>
+                            <li><p>Employee Size: </p> <span>{companyInfo.CompanyEmployeeSize}</span></li>
+                            <li><p>Founded:</p> <span>{companyInfo.Founded}</span></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div className="middleInfo">
+                    {
+                        companyInfo.CompanyWebLink ?
+                            <a className="button-container" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer" >
+                                <span className="text-btn">
+                                    Visit Website
                             </span>
-                                    </a>
-                                    :
-                                    null
-                            }
+                            </a>
+                            :
+                            null
+                    }
 
-                        </div>
-
-                        <div className="companySliderInfo-container">
-                            <CompanyInfoSlider sliderData={SliderData} />
-                        </div>
+                    <div className="specialities-container">
+                        <h3>Company Specialities</h3>
+                        <p>{companyInfo.Specialities}</p>
                     </div>
 
-
-                    <div className="related-companies">
-                        <HexMap CompanyData={relatedCompanies} hexAmount="10" colSize="2" />
+                    <div className="companyDescription-container">
+                        <h3>Company Description</h3>
+                        <div className="description-container">
+                            <p>{companyInfo.CompanyDescription}</p>
+                        </div>
                     </div>
-
-
+                </div>
+                <div className="relatedCompanies-container">
+                    <h3>Related Companies</h3>
+                    <HexMap CompanyData={relatedCompanies} colSize="2" hexAmount="12" />
                 </div>
             </div>
         );
