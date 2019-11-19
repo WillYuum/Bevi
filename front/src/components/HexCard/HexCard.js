@@ -18,9 +18,9 @@ const HexCard = ({ CompanyId, CompanyName, CompanyType, hexModuleCss }) => {
       <Link to={`/company/${CompanyId}`}>
         <div className={hexCard.hexIn}>
           <div className={hexCard.hexLink} style={{
-            backgroundImage: `url(\"${Back_Url}/companylogos/${
+            backgroundImage: `url("${Back_Url}/companylogos/${
               `${CompanyName}.png`
-              }\")`
+              }")`
           }} >
             {/* <img
               className={hexCard.img}

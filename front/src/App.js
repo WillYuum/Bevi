@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
 import { shuffleCompanies } from "./utils/shuffleCompanies";
 
@@ -93,7 +93,7 @@ class App extends React.Component {
           <Route
             path={["/companies/:id", "/companies"]}
             render={props => {
-              return <CompaniesPage CompanyData={CompanyData} {...props} />;
+              return <CompaniesPage CompanyData={CompanyData} CompanyTypes={CompanyTypes} {...props} />;
             }}
           />
 

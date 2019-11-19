@@ -1,13 +1,29 @@
-.CompaniesPage-container{
-
-    .amountOfCompanies{
-        span{
-            background-color:#fffac6;
-        }
+.CompaniesPage-container {
+  .amountOfCompanies {
+    span {
+      background-color: #fffac6;
     }
+  }
 
-    .CompaniesSection{
-        width:85vw;
-        margin: 150px auto;
+  .CompaniesSection {
+    width: 85vw;
+    margin: 150px auto;
+  }
+  .dropDown-container {
+    text-align: center;
+    .dropDown-filter {
+      background-color: #e9ff8c;
+      height: 45px;
+      font-size: 15px;
+      appearance: none;
+      border: 1px solid;
+      text-align: center;
+      border: 1px solid #999;
+      box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+      outline: none;
+      &:hover {
+        border: 1px solid #000;
+      }
     }
+  }
 }

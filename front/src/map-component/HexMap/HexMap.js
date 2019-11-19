@@ -37,6 +37,14 @@ class HexMap extends React.Component {
     }
   }
 
+  async componentWillReceiveProps(props) {
+    if (props.filterCompaniesId) {
+      await this.getCompaniesByType(props.filterCompaniesId)
+    } else {
+      return;
+    }
+  }
+
   getCompaniesByType = async id => {
     try {
       const req = await fetch(`${this.Back_Url}/companies/type/${id}`);
@@ -60,30 +68,19 @@ class HexMap extends React.Component {
         <ul className={`${colOf6.hexGrid} hexGrid`}>
           {filteredCompanies.length !== 0
             ? filteredCompanies.map((company, index) => {
-                return (
-                  <HexCard
-                    key={index}
-                    CompanyId={company.CompanyId}
-                    CompanyName={company.CompanyName}
-                    CompanyType={company.Type}
-                    hexModuleCss={checkColSize(colSize)}
-                  />
-                );
-              })
+              return (
+                <HexCard
+                  key={index}
+                  CompanyId={company.CompanyId}
+                  CompanyName={company.CompanyName}
+                  CompanyType={company.Type}
+                  hexModuleCss={checkColSize(colSize)}
+                />
+              );
+            })
             : CompanyData.map((company, index) => {
-                if (hexAmount) {
-                  while (hexAmount > index) {
-                    return (
-                      <HexCard
-                        key={index}
-                        CompanyId={company.CompanyId}
-                        CompanyName={company.CompanyName}
-                        CompanyType={company.Type}
-                        hexModuleCss={checkColSize(colSize)}
-                      />
-                    );
-                  }
-                } else {
+              if (hexAmount) {
+                while (hexAmount > index) {
                   return (
                     <HexCard
                       key={index}
@@ -94,7 +91,18 @@ class HexMap extends React.Component {
                     />
                   );
                 }
-              })}
+              } else {
+                return (
+                  <HexCard
+                    key={index}
+                    CompanyId={company.CompanyId}
+                    CompanyName={company.CompanyName}
+                    CompanyType={company.Type}
+                    hexModuleCss={checkColSize(colSize)}
+                  />
+                );
+              }
+            })}
         </ul>
       </div>
     );
