@@ -7,8 +7,7 @@ const consideredType = [
     "Internet",
     "Computer Games",
     "Electrical & Electronic Manufacturing",
-    "Telecommunications",
-    "Marketing & Advertising"];
+    "Telecommunications"];
 const setOfType = new Set(consideredType);
 
 /**
@@ -17,7 +16,7 @@ const setOfType = new Set(consideredType);
  * @returns {bool}
  */
 export const checkIfCompanyTech = (recievedType) => {
-    console.log("recieved Type",recievedType)
+    console.log("recieved Type", recievedType)
     if (setOfType.has(recievedType.trim())) {
         return true;
     } else {

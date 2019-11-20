@@ -57,7 +57,7 @@ const ScrapeCompanySite = async (page, companyUrl) => {
     const TypeId = await checkIfTypeExist(headerContent.CompanyType);
     headerContent.CompanyType = await TypeId;
 
-    // await ScrapeCompanyLogo(page, headerContent.CompanyName);
+    await ScrapeCompanyLogo(page, headerContent.CompanyName);
     // await ScrapeHeroImage(page, headerContent.CompanyName);
 
     // Saving CompantData to database
