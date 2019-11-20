@@ -33,7 +33,8 @@ class HexMap extends React.Component {
     if (props.TypeId) {
       this.getCompaniesByType(props.TypeId);
     } else {
-      return;
+      const { CompanyData } = this.props;
+      return this.setState({filterCompanies: CompanyData});
     }
   }
 

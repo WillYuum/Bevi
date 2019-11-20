@@ -30,6 +30,11 @@ $HexMap-Container-width: 650px;
     .QuickSearch-container {
       margin: auto;
       width: $HexMap-Container-width;
+
+      //! need to fix this later
+      .margin-left{
+        margin-left:100px ;
+      }
     }
   }
   .StartSearching {

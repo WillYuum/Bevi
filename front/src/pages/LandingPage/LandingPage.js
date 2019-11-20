@@ -32,7 +32,7 @@ class LandingPage extends React.Component {
           </div>
           <div className="QuickSearch-container">
             <h2>Search By Company Types</h2>
-            <div className="QuickSearch-grid hexGrid">
+            <div className="QuickSearch-grid hexGrid margin-left">
               <FilterMap
                 CompanyTypes={CompanyTypes}
                 FilterButtonAmount="5"

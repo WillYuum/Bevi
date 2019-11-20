@@ -35,7 +35,7 @@ class CompaniesPage extends React.Component {
         <p className="amountOfCompanies">Companies Collected: <span>{CompanyData.length}</span></p>
         <div className="dropDown-container">
           <select onChange={this.handleSelectChange} className="dropDown-filter" name="selectType">
-            <option val="null">Display all companies</option>
+            <option val="undefined">Display all companies</option>
             {
               CompanyTypes.map((type, i) => {
                 return (
