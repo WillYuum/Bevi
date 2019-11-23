@@ -25,11 +25,11 @@ $backgroundColor: #d89b00;
         text-align: center;
         margin-top: 25px;
         h1 {
-          font-size: 20px;
+          font-size: 30px;
         }
 
         h2 {
-          font-size: 17px;
+          font-size: 20px;
           color: $textColor;
         }
       }
@@ -38,18 +38,21 @@ $backgroundColor: #d89b00;
     .companyDetails {
       margin-top: 100px;
       h3 {
+        font-size: 23px;
         border-bottom: 1px solid #000;
       }
       ul {
         margin-top: 10px;
+        font-size:17px;
         li {
           display: flex;
           list-style: none;
+          margin-bottom: 5px;
           p {
           }
           span {
-            color: $textColor;
             margin-left: 7px;
+            color: $textColor;
           }
         }
       }
@@ -85,11 +88,13 @@ $backgroundColor: #d89b00;
       margin-top: 100px;
       width: 100%;
       h3 {
+        font-size: 21px;
         width: 400px;
         border-bottom: 1px solid #000;
       }
 
       p {
+        font-size: 18px;
         margin: 5px 0 0 20px;
       }
     }
@@ -107,9 +112,13 @@ $backgroundColor: #d89b00;
         scrollbar-width: thin;
         scrollbar-color: #f2ad00 #e9ff8c;
       }
+      h3 {
+        font-size: 21px;
+      }
       p {
-        white-space: pre-line;
+        font-size: 18px;
         padding: 15px;
+        white-space: pre-line;
       }
     }
   }

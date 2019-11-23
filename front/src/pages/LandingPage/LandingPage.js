@@ -21,7 +21,7 @@ class LandingPage extends React.Component {
       <div className="LandingPage-container">
         <div className="Bevi-introCotntainer">
           <h1>A Collection of All Tech Companies in Lebanon</h1>
-          <small>Search for your fitting tech company with ease!</small>
+          <p>Search for your fitting tech company with ease!</p>
         </div>
         <div className="content-container">
           <div className="featuredCompanies-container">
@@ -30,7 +30,7 @@ class LandingPage extends React.Component {
               <HexMap CompanyData={CompanyData} hexAmount="7" colSize="4" />
             </div>
           </div>
-          <div className="QuickSearch-container">
+          <div className="QuickSearch-container margin-top">
             <h2>Search By Company Types</h2>
             <div className="QuickSearch-grid hexGrid margin-left">
               <FilterMap

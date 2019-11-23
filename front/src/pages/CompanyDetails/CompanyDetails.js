@@ -9,8 +9,6 @@ import HexMap from '../../map-component/HexMap/HexMap.js';
 
 import "./CompanyDetails.scss";
 
-
-
 class CompanyDetails extends React.Component {
     constructor(props) {
         super(props);
