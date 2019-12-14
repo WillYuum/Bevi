@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 //Importing Logo as component
-import { ReactComponent as Logo } from "../../bevi_logo_b.svg";
+import { ReactComponent as Logo } from "../../assets/bevi_logo_b.svg"
 
 import "./NavBar.scss";
 
