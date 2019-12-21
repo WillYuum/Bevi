@@ -4,8 +4,8 @@ import initCompanyController from "../Controllers/CompaniesController.js";
 const initCompaniesRoutes = async () => {
   const controller = await initCompanyController();
 
-  
-  app.get("/companies", async (req, res, next) => {
+
+  app.get("/bevi.api/companies", async (req, res, next) => {
     try {
       let data = await controller.getCompanies();
       res.send({
@@ -17,20 +17,20 @@ const initCompaniesRoutes = async () => {
     }
   });
 
-  app.get("/company/:id", async(req,res,next)=>{
-    try{
+  app.get("/bevi.api/company/:id", async (req, res, next) => {
+    try {
       const companyId = req.params.id;
       const data = await controller.getCompanyById(companyId)
       res.send({
-        success:true,
+        success: true,
         Company: data
       })
-    }catch(err){
+    } catch (err) {
       next(err)
     }
   })
 
-  app.get("/companies/type/:id", async (req, res, next) => {
+  app.get("/bevi.api/companies/type/:id", async (req, res, next) => {
     try {
       const typeId = req.params.id;
       const companies = await controller.getCompaniesByTypeId(typeId);

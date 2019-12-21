@@ -11,23 +11,17 @@ import { Link } from "react-router-dom";
  */
 const HexCard = ({ CompanyId, CompanyName, CompanyType, hexModuleCss }) => {
   //simplifying the procces.env variable
-  const Back_Url = process.env.REACT_APP_BEVY_API;
+  const LOGO_BACK_DIRECTORY = process.env.REACT_APP_COMPANYLOGO_DIRECTORY;
 
   return (
     <li className={`${hexModuleCss} ${hexCard.hex} ${HexIntro.hex}`}>
       <Link to={`/company/${CompanyId}`}>
         <div className={hexCard.hexIn}>
           <div className={hexCard.hexLink} style={{
-            backgroundImage: `url("${Back_Url}/companylogos/${
+            backgroundImage: `url("${LOGO_BACK_DIRECTORY}/companylogos/${
               `${CompanyName}.png`
               }")`
           }} >
-            {/* <img
-              className={hexCard.img}
-              src={`${Back_Url}/companylogos/${CompanyName}.png`}
-              alt={`Company Logo of ${CompanyName}`}
-              width="100px"
-            /> */}
             <h1>{CompanyName}</h1>
             <p>{CompanyType}</p>
           </div>
