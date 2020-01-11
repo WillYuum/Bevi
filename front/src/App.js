@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar/NavBar.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
 import CompaniesPage from "./pages/CompaniesPage/CompaniesPage.js";
 import CompanyDetails from "./pages/CompanyDetails/CompanyDetails.js";
+import NotFoundPage from "./pages/404Page/NotFoundPage.js"
 //----------------IMPORT COMPONENTS------------------
 
 import "./App.scss";
@@ -103,6 +104,10 @@ class App extends React.Component {
               return <CompanyDetails {...props} />;
             }}
           />
+
+          <Route render={()=>{
+            return <NotFoundPage />
+          }} />
         </AnimatedSwitch>
       </div>
     );
