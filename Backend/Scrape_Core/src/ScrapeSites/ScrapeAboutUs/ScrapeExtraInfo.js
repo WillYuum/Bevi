@@ -1,3 +1,6 @@
+import { aboutSelector } from "./AboutUsSelectors"
+
+
 /**
  * @function scrapeExtraInfo - Scrape the part that has same class selector in about company
  * @param {class} page - page will provide you with browser and page functions

@@ -5,15 +5,15 @@ import initCompanyController from "../../../src/Controllers/CompaniesController.
 import checkIfTypeExist from "./checkTypeExist.js";
 import { checkIfCompanyTech } from "./CheckIfCompanyTech.js";
 
-import { ScrapeHeader } from "./ScrapeHeader/ScrapeHeader.js/index.js.js";
-import { ScrapeAboutUs } from "./ScrapeAboutUs/ScrapeAboutUs.js.js";
-import { ScrapeCompanyLogo, ScrapeHeroImage } from "./ScrapeHeader/ScrapeImages.js/index.js.js";
+import { ScrapeHeader } from "./ScrapeHeader/ScrapeHeader.js";
+import { ScrapeAboutUs } from "./ScrapeAboutUs/ScrapeAboutUs.js";
+import { ScrapeCompanyLogo, ScrapeHeroImage } from "./ScrapeHeader/ScrapeImages.js"
 
 /**
  * @function Main - Scraping linkedIn Company Site happens Here
  */
 const Main = async () => {
-  const CompanyUrls = fs.readFileSync("NewUrls.json");
+  const CompanyUrls = fs.readFileSync("CompanyUrls.json");
   const urls = await JSON.parse(CompanyUrls);
 
   const page = await loginToLinkinedin("https://www.linkedin.com/login");

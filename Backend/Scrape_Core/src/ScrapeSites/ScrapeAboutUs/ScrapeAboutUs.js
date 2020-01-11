@@ -1,5 +1,5 @@
-import { scrapeExtraInfo } from "./ScrapeExtraInfo.js.js";
-import { aboutSelector } from "./AboutUsSelectors.js.js"
+import { scrapeExtraInfo } from "./ScrapeExtraInfo.js";
+import { aboutSelector } from "./AboutUsSelectors.js"
 
 /**
  *@function ScrapeAboutUs - Scrapes the about us section in company Site

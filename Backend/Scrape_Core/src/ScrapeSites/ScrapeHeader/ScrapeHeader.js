@@ -1,4 +1,4 @@
-import { headerSelectors } from "./HeaderSelector.js.js"
+import { headerSelectors } from "./HeaderSelector.js"
 
 /**
  * @function ScrapeHeader Srcape the header part of company site
