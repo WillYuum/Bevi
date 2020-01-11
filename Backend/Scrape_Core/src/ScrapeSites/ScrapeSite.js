@@ -16,15 +16,6 @@ const Main = async () => {
   const CompanyUrls = fs.readFileSync("NewUrls.json");
   const urls = await JSON.parse(CompanyUrls);
 
-  //!THIS IS TO REMOVE DUPLICATES AND SHOULD BE ADDED TO URL SCRAPING FUNCTIONALITY
-  // const newUrls = urls.reduce((uniqueUrl, url) => {
-  //   return uniqueUrl.includes(url) ? uniqueUrl : [...uniqueUrl, url]
-  // }, [])
-
-  // console.log("The new Url", newUrls)
-  // fs.writeFileSync("NewUrls.json", JSON.stringify(newUrls))
-
-
   const page = await loginToLinkinedin("https://www.linkedin.com/login");
   for (let i = 0; i < urls.length; i++) {
     await ScrapeCompanySite(page, urls[i]);
@@ -50,7 +41,6 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
 
-  console.log(checkIfCompanyTech(headerContent.CompanyType));
   if (checkIfCompanyTech(headerContent.CompanyType)) {
 
     //changing the CompanyType to id so it can be identified as an Id in the database

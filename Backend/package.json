@@ -10,8 +10,8 @@
   },
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
-    "scrape-url": "nodemon --exec babel-node ./Scrape_Functionality/src/ScrapingCompanyUrl/Main.js",
-    "scrape-site": "nodemon --exec babel-node ./Scrape_Functionality/src/ScrapeSites/ScrapeSite.js"
+    "scrape-url": "nodemon --exec babel-node ./Scrape_Core/src/ScrapingCompanyUrl/Main.js",
+    "scrape-site": "nodemon --exec babel-node ./Scrape_Core/src/ScrapeSites/ScrapeSite.js"
   },
   "author": "WillYum",
   "license": "ISC",

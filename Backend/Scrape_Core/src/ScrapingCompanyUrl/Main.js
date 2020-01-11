@@ -1,5 +1,5 @@
-import loginToLinkinedin from "../publicFuncs/loginFunc.js";
-import { closeBrowser } from "../publicFuncs/broswerFunc.js";
+import loginToLinkinedin from "../Activation_Functions/loginFunc.js";
+import { closeBrowser } from "../Activation_Functions/broswerFunc.js";
 
 const fs = require("fs");
 
@@ -19,25 +19,27 @@ let maxpage = 0;
 /**
  * @function Main The Main will run all all the fucntions to scrape all the companyNames
  */
-const Main = async () => {
-  try {
-    const page = await loginToLinkinedin("https://www.linkedin.com/login");
+(async () => {
 
-    const allData = [];
+  const page = await loginToLinkinedin("https://www.linkedin.com/login");
 
-    for (let i = 0; i < urls.length; i++) {
-      await page.goto(urls[i]);
-      maxpage = await getMaxPage(page);
-      const AllCompanyUrl = await recursiveScrappe(page, urls[i], 1, maxpage, []);
-      allData.push(AllCompanyUrl)
-    }
-    writeToJson(allData);
-  } catch (err) {
-    console.log(`Fetching Main failed with = ${err}`);
+  const allData = [];
+
+  for (let i = 0; i < urls.length; i++) {
+    await page.goto(urls[i]);
+    maxpage = await getMaxPage(page);
+    const AllCompanyUrl = await recursiveScrappe(page, urls[i], 1, maxpage, []);
+    allData.push(AllCompanyUrl)
   }
-  console.log("Finished scraping company urls");
+  
+  //removing duplicates urls
+  const uniqueUrls = RemoveDuplicates(allData)
+
+  writeToJson(uniqueUrls);
   closeBrowser();
-};
+
+  console.log("Finished scraping company urls");
+})();
 
 /**
  * @function getMaxPage - gets the maximum number of the page
@@ -107,8 +109,20 @@ const recursiveScrappe = async (page, url, currentPage, max_page, list) => {
  * @function writeToJson this function will save the data into a json file
  * @param {array} data will take the array of data and turn it into json format
  */
-const writeToJson = data => {
-  fs.writeFileSync("CompanyUrls.json", JSON.stringify(data));
-};
+function writeToJson(data) {
+  fs.writeFileSync("CompanyUrls.json", JSON.stringify(data))
+}
 
-Main();
+/**
+ *@function RemoveDuplicates - removes Company url duplicates from arrays in array
+ *
+ * @param {Array} arr - The array that holds the arrays of company urls
+ * @returns {Array} - array of unique company urls
+ */
+function RemoveDuplicates(arr) {
+  return Object.values(arr.reduce((_, uniqueCompanyUrl) => {
+    return uniqueCompanyUrl
+  }, []))
+}
+
+
