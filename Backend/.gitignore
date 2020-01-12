@@ -6,10 +6,8 @@ src/credentials.js
 
 Bevy.sqlite
 
-CompanyUrls
-
 # Ignoring CompanyLogo images
 **/*.png
 
 # Ignoring all company linkedIn urls sites
-CompanyUrls
+CompanyUrls.json
