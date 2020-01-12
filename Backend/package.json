@@ -11,7 +11,8 @@
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
     "scrape-url": "nodemon --exec babel-node ./Scrape_Core/src/ScrapingCompanyUrl/Main.js",
-    "scrape-site": "nodemon --exec babel-node ./Scrape_Core/src/ScrapeSites/ScrapeSite.js"
+    "scrape-site": "nodemon --exec babel-node ./Scrape_Core/src/ScrapeSites/ScrapeSite.js",
+    "leaf-scrape": "nodemon --exec babel-node ./Scrape_Core/src/LeafScrape/LeafScrape.js"
   },
   "author": "WillYum",
   "license": "ISC",
