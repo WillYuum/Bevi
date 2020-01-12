@@ -49,15 +49,16 @@ const initCompaniesRoutes = async () => {
   app.get("/bevi.api/companies/download-csv", async (req, res, next) => {
     try {
       let date = new Date()
-      let downloadDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`
+      let downloadDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+      
       res.setHeader('Content-Type', 'text/csv');
       res.setHeader('Content-Disposition', 'attachment; filename=\"' + 'Companies-' + downloadDate + '.csv\"');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Pragma', 'no-cache');
 
       const data = await controller.getCSVData();
-      console.log(data)
-      await stringify(data, { header: true })
+
+      stringify(data, { header: true })
         .pipe(res)
     } catch (err) {
       next(err)
