@@ -112,16 +112,34 @@ const initCompanyController = async () => {
           }
         );
       });
+
     } catch (err) {
       throw new Error(`creating company faided with = ${err}`);
     }
   };
 
+  const getCSVData = async () => {
+    try {
+      const stmt = `SELECT CompanyName, Type, CompanyWebLink FROM Companies JOIN Types ON Companies.CompanytypeId = Types.TypeId`
+      return new Promise((resolve, rejects) => {
+        db.all(stmt, [], (err, result) => {
+          if (err) {
+            rejects(err)
+          }
+          resolve(result)
+        })
+      })
+    } catch (err) {
+      throw new Error(`Fetching csv data failed with ${err}`)
+    }
+  }
+
   const controller = {
     getCompanies,
     getCompanyById,
     getCompaniesByTypeId,
-    createCompany
+    createCompany,
+    getCSVData
   };
   return controller;
 };

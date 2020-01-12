@@ -1,6 +1,8 @@
 import app from "../../app.js";
 import initCompanyController from "../Controllers/CompaniesController.js";
 
+const stringify = require('csv-stringify');
+
 const initCompaniesRoutes = async () => {
   const controller = await initCompanyController();
 
@@ -42,6 +44,25 @@ const initCompaniesRoutes = async () => {
       next(err);
     }
   });
+
+
+  app.get("/bevi.api/companies/download-csv", async (req, res, next) => {
+    try {
+      let date = new Date()
+      let downloadDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=\"' + 'Companies-' + downloadDate + '.csv\"');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Pragma', 'no-cache');
+
+      const data = await controller.getCSVData();
+      console.log(data)
+      await stringify(data, { header: true })
+        .pipe(res)
+    } catch (err) {
+      next(err)
+    }
+  })
 
 };
 export default initCompaniesRoutes;
