@@ -3,14 +3,35 @@ import { closeBrowser } from "../Activation_Functions/broswerFunc.js";
 
 const fs = require("fs");
 
+//! old base seeds that wasn't getting good results
+// const urls = [
+//   "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
+//   "https://www.linkedin.com/search/results/companies/?keywords=%20%20%20%20%20Information%20Technology%20%26%20Services%20%2C%20Beirut&origin=SWITCH_SEARCH_VERTICAL",
+//   "https://www.linkedin.com/search/results/companies/?keywords=Internet%2C%20Beirut&origin=GLOBAL_SEARCH_HEADER",
+//   "https://www.linkedin.com/search/results/companies/?keywords=mobile%20%2C%20lebanon&origin=GLOBAL_SEARCH_HEADER",
+//   "https://www.linkedin.com/search/results/companies/?keywords=development%2C%20Beirut&origin=GLOBAL_SEARCH_HEADER",
+//   "https://www.linkedin.com/search/results/companies/?keywords=Web%20development%2C%20Lebanon&origin=SWITCH_SEARCH_VERTICAL"
+// ]
+
 const urls = [
-  "https://www.linkedin.com/search/results/companies/?keywords=software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
-  "https://www.linkedin.com/search/results/companies/?keywords=%20%20%20%20%20Information%20Technology%20%26%20Services%20%2C%20Beirut&origin=SWITCH_SEARCH_VERTICAL",
+  "https://www.linkedin.com/search/results/companies/?keywords=Software%20company%2C%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
+  "https://www.linkedin.com/search/results/companies/?keywords=computer%20software%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
+  "https://www.linkedin.com/search/results/companies/?keywords=Information%20Technology%20%26%20Services%20lebanon&origin=SWITCH_SEARCH_VERTICAL",
+  "https://www.linkedin.com/search/results/companies/?keywords=Web%20development%2C%20Lebanon&origin=SWITCH_SEARCH_VERTICAL",
   "https://www.linkedin.com/search/results/companies/?keywords=Internet%2C%20Beirut&origin=GLOBAL_SEARCH_HEADER",
-  "https://www.linkedin.com/search/results/companies/?keywords=mobile%20%2C%20lebanon&origin=GLOBAL_SEARCH_HEADER",
-  "https://www.linkedin.com/search/results/companies/?keywords=development%2C%20Beirut&origin=GLOBAL_SEARCH_HEADER",
-  "https://www.linkedin.com/search/results/companies/?keywords=Web%20development%2C%20Lebanon&origin=SWITCH_SEARCH_VERTICAL"
+  "https://www.linkedin.com/search/results/companies/?keywords=Web%20development%20lebanon&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=web%20Beirut&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=beirut%20mobile%20development&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=lebanon%20mobile%20development&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=web%20design%20lebanon&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=software%20development%20lebanon&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=software development lebanon&origin=GLOBAL_SEARCH_HEADER",
+  "https://www.linkedin.com/search/results/companies/?keywords=software%20Beirut&origin=GLOBAL_SEARCH_HEADER"
+
+
 ]
+
+
 
 
 //public variable to use in |recursiveScrappe| function
@@ -31,7 +52,7 @@ let maxpage = 0;
     const AllCompanyUrl = await recursiveScrappe(page, urls[i], 1, maxpage, []);
     allData.push(AllCompanyUrl)
   }
-  
+
   //removing duplicates urls
   const uniqueUrls = RemoveDuplicates(allData)
 
@@ -120,9 +141,17 @@ function writeToJson(data) {
  * @returns {Array} - array of unique company urls
  */
 function RemoveDuplicates(arr) {
-  return Object.values(arr.reduce((_, uniqueCompanyUrl) => {
-    return uniqueCompanyUrl
-  }, []))
+  let newArr = []
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    element.forEach(url => {
+      newArr.push(url)
+    });
+  }
+
+  return newArr.reduce((uniqueUrl, url) => {
+    return uniqueUrl.includes(url) ? uniqueUrl : [...uniqueUrl, url]
+  }, [])
 }
 
 
