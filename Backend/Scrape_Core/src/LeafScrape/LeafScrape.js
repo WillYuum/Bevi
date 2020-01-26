@@ -1,53 +1,50 @@
 import loginToLinkinedin from "../Activation_Functions/loginFunc.js"
 import { closeBrowser } from "../Activation_Functions/broswerFunc.js";
-import { similarPagesSelectors } from "./SimilarPagesSelector.js"
+import { similarPagesSelectors } from "./SimilarPagesSelector.js";
 
 const BaseSeed = [
     "https://www.linkedin.com/company/groovy-antoid/",
 ]
 
-let CompaniesStack = []
+let CompaniesStack = [];
 
 async function LeafScrape() {
     const page = await loginToLinkinedin("https://www.linkedin.com/login");
 
-    //loop
     for (let i = 0; i < BaseSeed.length; i++) {
-        await page.goto(BaseSeed[i])
+        await page.goto(BaseSeed[i]);
 
-        const CompaniesCard = await page.evaluate(similarPagesSelectors => {
-            return Card = document.querySelector(similarPagesSelectors.similarPageCard)
-        }, similarPagesSelectors);
-
-        const Company = await ScrapeCompanyMainData({ CompaniesCard, similarPagesSelectors, page })
-        CompaniesStack.push(Company)
+        let data = await ScrapeCompanyMainData({ similarPagesSelectors, page });
+        CompaniesStack.push(...data)
     }
 
     console.log(CompaniesStack)
+    // closeBrowser();
 }
 
 async function ScrapeCompanyMainData(params) {
-    const { Card, page, similarPagesSelectors } = params
+    const { similarPagesSelectors, page } = params;
 
-    //! Stuck here in error where querySelector can't work with undefined value
-    const data = await page.evaluate(({ Card, similarPagesSelectors }) => {
-        //get Company Name from card
-        const CompanyName = Card.querySelector(`${similarPagesSelectors.CompanyName}`)
+    let data = await page.evaluate((similarPagesSelectors) => {
+        const CompaniesCard = document.querySelector(`${similarPagesSelectors.similarPageCard}`)
+        const Companies = CompaniesCard.querySelectorAll(`${similarPagesSelectors.CompanyCard}`)
 
-        //get Company Type from card
-        const CompanyType = Card.querySelector(`${similarPagesSelectors.CompanyType}`)
 
-        //get Company Web Link from card
-        const CompanyWebLink = Card.querySelector(`${similarPagesSelectors.CompanyLink}`)
+        let newData = []
+        for (let i = 0; i < Companies.length - 1; i++) {
+            let currentCompany = Companies[i]
 
-        return {
-            CompanyName,
-            CompanyType,
-            CompanyWebLink
+            let Company = {
+                CompanyName: currentCompany.querySelector(`${similarPagesSelectors.CompanyName}`).innerText,
+                CompanyType: currentCompany.querySelector(`${similarPagesSelectors.CompanyType}`).innerText,
+                CompanyWebLink: currentCompany.querySelector(`${similarPagesSelectors.CompanyLink}`).getAttribute("href")
+            }
+            newData.push(Company)
         }
-    }, { Card, similarPagesSelectors })
+        return newData
+    }, similarPagesSelectors);
 
-    console.log(data)
+    return data
 }
 
 
