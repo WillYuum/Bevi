@@ -3,7 +3,6 @@ import loginToLinkinedin from "../Activation_Functions/loginFunc.js"
 import { closeBrowser } from "../Activation_Functions/broswerFunc.js";
 import initCompanyController from "../../../src/Controllers/CompaniesController.js";
 import checkIfTypeExist from "./checkTypeExist.js";
-import { checkIfCompanyTech } from "./CheckIfCompanyTech.js";
 
 import { ScrapeHeader } from "./ScrapeHeader/ScrapeHeader.js";
 import { ScrapeAboutUs } from "./ScrapeAboutUs/ScrapeAboutUs.js";
@@ -41,25 +40,25 @@ const ScrapeCompanySite = async (page, companyUrl) => {
   const headerContent = await ScrapeHeader(page);
   const aboutdata = await ScrapeAboutUs(page, url);
 
-  if (checkIfCompanyTech(headerContent.CompanyType)) {
+  // if (checkIfCompanyTech(headerContent.CompanyType)) {
 
-    //changing the CompanyType to id so it can be identified as an Id in the database
-    const TypeId = await checkIfTypeExist(headerContent.CompanyType);
-    headerContent.CompanyType = await TypeId;
+  //changing the CompanyType to id so it can be identified as an Id in the database
+  const TypeId = await checkIfTypeExist(headerContent.CompanyType);
+  headerContent.CompanyType = await TypeId;
 
-    await ScrapeCompanyLogo(page, headerContent.CompanyName);
+  await ScrapeCompanyLogo(page, headerContent.CompanyName);
 
-    //removed scraping the hero image for design reasons
-    //// await ScrapeHeroImage(page, headerContent.CompanyName);
+  //removed scraping the hero image for design reasons
+  //// await ScrapeHeroImage(page, headerContent.CompanyName);
 
-    // Saving CompantData to database
-    await controller.createCompany({
-      MainData: headerContent,
-      AboutCompany: aboutdata
-    });
-  } else {
-    return;
-  }
+  // Saving CompantData to database
+  await controller.createCompany({
+    MainData: headerContent,
+    AboutCompany: aboutdata
+  });
+  // } else {
+  //   return;
+  // }
 };
 
 Main();

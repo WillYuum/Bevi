@@ -1,3 +1,6 @@
 {
-    "ignore": ["CompanyUrls.json"]
-  }
+  "ignore": [
+    "CompanyUrls.json",
+    "CompanyNames.json"
+  ]
+}

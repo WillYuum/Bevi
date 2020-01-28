@@ -11,11 +11,11 @@ const consideredType = [
 const setOfType = new Set(consideredType);
 
 /**
- * @function checkIfCompanyTech check if company is tech company
+ * @function CheckIfCompanyTech check if company is tech company
  * @param {string} recievedType - Type of the Tech company
  * @returns {bool}
  */
-export const checkIfCompanyTech = (recievedType) => {
+export function CheckIfCompanyTech(recievedType){
     console.log("recieved Type", recievedType)
     if (setOfType.has(recievedType.trim())) {
         return true;
