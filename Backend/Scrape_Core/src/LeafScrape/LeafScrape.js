@@ -1,7 +1,7 @@
 import loginToLinkinedin from "../Activation_Functions/loginFunc.js";
 import { closeBrowser } from "../Activation_Functions/broswerFunc.js";
 import { similarPagesSelectors } from "./SimilarPagesSelector.js";
-import { CheckIfCompanyTech } from "./utils/CheckIfCompanyTech.js";
+import { CompanyTypeIsTech } from "./utils/CompanyTypeIsTech";
 import { CheckIfCompanyWasScraped, LoadCompanyNames, SaveCheckedCompanyNames } from "./utils/CheckedCompanies.js";
 
 const BaseSeed = [
@@ -11,29 +11,39 @@ const BaseSeed = [
 let CompaniesStack = [];
 
 async function LeafScrape() {
-    LoadCompanyNames();
+    // LoadCompanyNames();
+    try {
 
-    const page = await loginToLinkinedin("https://www.linkedin.com/login");
 
-    for (let i = 0; i < BaseSeed.length; i++) {
-        await page.goto(BaseSeed[i]);
 
-        //getting the data from similar page card
-        let CompanyData = await ScrapeCompanyMainData({ similarPagesSelectors, page });
+        const page = await loginToLinkinedin("https://www.linkedin.com/login");
 
-        //checking if the company have been searched from before
-        if(CheckIfCompanyWasScraped(CompanyData.CompanyName)){
-            //TODO: Check if Company is a TEch company(use the function in utils)
-             //maybe add the extra conditions in utils
-             
-            CompaniesStack.push(...CompanyData)
+        for (let i = 0; i < BaseSeed.length; i++) {
+            await page.goto(BaseSeed[i]);
+
+            //getting the data from similar page card
+            let CompanyData = await ScrapeCompanyMainData({ similarPagesSelectors, page });
+
+            for (let index = 0; index < CompanyData.length; index++) {
+                const company = CompanyData[index];
+                //checking if the company have been searched from before
+                if (CheckIfCompanyWasScraped(company.CompanyName)) {
+                    CompaniesStack.push(company)
+                    console.log(`${company.CompanyName} was not scraped`);
+                } else {
+                    console.log(`${company.CompanyName} was scraped`);
+                }
+
+            }
         }
-    }
 
-    console.log(CompaniesStack)
-    //saving company names that occured during the scrape
-    SaveCheckedCompanyNames()
-    // closeBrowser();
+        console.log(CompaniesStack)
+        //saving company names that occured during the scrape
+        // SaveCheckedCompanyNames()
+        // closeBrowser();
+    } catch (err) {
+        console.error(`leaf scrape failed with ${err}`)
+    }
 }
 
 /**
@@ -55,22 +65,22 @@ async function ScrapeCompanyMainData(params) {
         for (let i = 0; i < Companies.length - 1; i++) {
             let currentCompany = Companies[i]
 
-            let Company = {
+            const Company = {
                 CompanyName: currentCompany.querySelector(`${similarPagesSelectors.CompanyName}`).innerText,
                 CompanyType: currentCompany.querySelector(`${similarPagesSelectors.CompanyType}`).innerText,
                 CompanyWebLink: currentCompany.querySelector(`${similarPagesSelectors.CompanyLink}`).getAttribute("href")
             }
+            //! Issue with CompanyTypeIsTech of error: ReferenceError: _CompanyTypeIsTech is not defined
+            // if (CompanyTypeIsTech(Company.CompanyType)) {
+            //     newData.push(Company);
+            // }
+            newData.push(Company);
 
-            const companyIsTech = CheckIfCompanyTech(Company.CompanyName);
-
-            if (companyIsTech) {
-                newData.push(Company)
-            }
         }
-        return newData
+        return newData;
     }, similarPagesSelectors);
 
-    return data
+    return data;
 }
 
 

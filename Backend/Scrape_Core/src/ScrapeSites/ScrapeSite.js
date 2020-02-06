@@ -2,7 +2,7 @@ import fs from "fs";
 import loginToLinkinedin from "../Activation_Functions/loginFunc.js"
 import { closeBrowser } from "../Activation_Functions/broswerFunc.js";
 import initCompanyController from "../../../src/Controllers/CompaniesController.js";
-import checkIfTypeExist from "./checkTypeExist.js";
+import { checkIfTypeExist } from "./checkTypeExist.js";
 
 import { ScrapeHeader } from "./ScrapeHeader/ScrapeHeader.js";
 import { ScrapeAboutUs } from "./ScrapeAboutUs/ScrapeAboutUs.js";
