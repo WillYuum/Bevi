@@ -2,8 +2,16 @@ import fs from "fs-extra";
 
 const filePath = `${__dirname}/CompanyNames.json`;
 
+//here I'll store the occured company names
 let CompanyNames = [];
 
+/**
+ *
+ * @export CheckIfCompanyWasScraped - method that will check if I already passed through company name
+ * so it doesn't have to go to the stack and search it's inner related companies
+ * @param {string} companyName
+ * @returns {boolean} 
+ */
 export function CheckIfCompanyWasScraped(companyName) {
     CompanyNames.sort();
     console.time("binary")
@@ -14,7 +22,7 @@ export function CheckIfCompanyWasScraped(companyName) {
 }
 
 
-
+//using binary search to search for company name
 function SearchForCompanyName(arr, left = 0, right, pickedName) {
     if (CompanyNames.length === 0) {
         CompanyNames.push(pickedName);
@@ -38,6 +46,11 @@ function SearchForCompanyName(arr, left = 0, right, pickedName) {
     }
 }
 
+/**
+ *
+ * @export LoadCompanyNames - loads the previous company names
+ * that the program passed through
+ */
 export async function LoadCompanyNames() {
     if (fs.existsSync(filePath)) {
         CompanyNames = JSON.parse(fs.readFileSync(filePath));
@@ -46,6 +59,10 @@ export async function LoadCompanyNames() {
     }
 }
 
+/**
+ * @export SaveCheckedCompanyNames - saving the updated array 
+ * that has the new company occured names
+ */
 export function SaveCheckedCompanyNames() {
     fs.writeFileSync(filePath, JSON.stringify(CompanyNames))
 }

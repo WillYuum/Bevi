@@ -31,10 +31,17 @@ async function LeafScrape() {
     }
 
     console.log(CompaniesStack)
+    //saving company names that occured during the scrape
     SaveCheckedCompanyNames()
     // closeBrowser();
 }
 
+/**
+ *
+ * @function ScrapeCompanyMainData Scrapes the names/companyType/CompanyUrl
+ * @param {Object} params 
+ * @returns {Array} return array of objects that will hold names/CompanyType/CompanyUrl
+ */
 async function ScrapeCompanyMainData(params) {
     const { similarPagesSelectors, page } = params;
 
