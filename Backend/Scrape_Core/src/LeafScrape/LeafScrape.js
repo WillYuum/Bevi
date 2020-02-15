@@ -16,11 +16,6 @@ async function StartLeafScrape() {
     LeafScrape(page);
 }
 
-
-async function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
 async function LeafScrape() {
     // LoadCompanyNames();
     try {
@@ -35,9 +30,9 @@ async function LeafScrape() {
             await page.goto("https://www.linkedin.com" + CompaniesStack[index]);
 
             if (await page.url() !== CompaniesStack[index]) {
-               await page.click(".org-page-navigation__items li");
+                await page.click(".org-page-navigation__items li");
+                await timeout(2000);
             }
-            await timeout(5000);
 
             //getting the data from similar page card
             let CompanyData = await ScrapeCompanyMainData({ similarPagesSelectors, page });
@@ -55,6 +50,7 @@ async function LeafScrape() {
                 }
             }
         }
+        console.log(CompaniesStack);
 
     } catch (err) {
         console.error(`leaf scrape failed with ${err}`)
@@ -84,17 +80,18 @@ async function ScrapeCompanyMainData(params) {
                 CompanyType: currentCompany.querySelector(`${similarPagesSelectors.CompanyType}`).innerText,
                 CompanyWebLink: currentCompany.querySelector(`${similarPagesSelectors.CompanyLink}`).getAttribute("href")
             }
-            //! Issue with CompanyTypeIsTech of error: ReferenceError: _CompanyTypeIsTech is not defined
-            // if (CompanyTypeIsTech(Company.CompanyType)) {
-            //     newData.push(Company);
-            // }
+            
             newData.push(Company);
-
         }
         return newData;
     }, similarPagesSelectors);
+    return data.filter((company) => {
+        return CompanyTypeIsTech(company.CompanyType);
+    })
+}
 
-    return data;
+async function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
