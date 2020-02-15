@@ -26,7 +26,7 @@ export function CheckIfCompanyWasScraped(companyName) {
 function SearchForCompanyName(arr, left = 0, right, pickedName) {
     if (CompanyNames.length === 0) {
         CompanyNames.push(pickedName);
-        return;
+        return false;
     }
 
 
