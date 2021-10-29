@@ -105,7 +105,7 @@ class App extends React.Component {
             }}
           />
 
-          <Route render={()=>{
+          <Route render={() => {
             return <NotFoundPage />
           }} />
         </AnimatedSwitch>
