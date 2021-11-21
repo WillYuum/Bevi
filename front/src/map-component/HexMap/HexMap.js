@@ -26,9 +26,6 @@ class HexMap extends React.Component {
     };
   }
 
-  // storing backend Url in readable variable
-  // Back_Url = process.env.REACT_APP_BEVY_API;
-
   componentDidMount() {
     const { ...props } = this.props;
     if (props.TypeId) {

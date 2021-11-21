@@ -1,5 +1,8 @@
 import React from 'react';
+
+
 import { shuffleCompanies } from "../../utils/shuffleCompanies.js"
+import { GetCompanyById, GetRelatedCompanyByType } from "../../BackEndController/BackendAPI.js";
 
 //----------------IMPORT COMPONENTS------------------
 import HexCard from "../../components/HexCard/HexCard.js";
@@ -18,67 +21,34 @@ class CompanyDetails extends React.Component {
         }
     }
 
-    // storing backend Url in readable variable
-    Back_Url = process.env.REACT_APP_BEVY_API;
 
     async componentDidMount() {
         const { ...props } = this.props
         const id = props.match.params.id;
-        await this.getCompanyById(id)
+        GetCompanyById(id, this.OnRecieveCompanyData);
 
         const relatedTypeId = this.state.companyInfo.CompanytypeId;
-        await this.getRelatedCompaniesById(relatedTypeId)
+        GetRelatedCompanyByType(relatedTypeId, this.OnRecieveRelatedCompanyByType)
     }
 
     async componentWillReceiveProps(newProps) {
 
         const id = newProps.match.params.id;
-        await this.getCompanyById(id)
+        GetCompanyById(id, this.OnRecieveCompanyData);
 
         const relatedTypeId = this.state.companyInfo.CompanytypeId;
-        await this.getRelatedCompaniesById(relatedTypeId)
+        GetRelatedCompanyByType(relatedTypeId, this.OnRecieveRelatedCompanyByType)
     }
-    /**
-     * @function getCompanyById get the company info 
-     * @param {int} id
-     */
-    getCompanyById = async (id) => {
-        try {
-            const req = await fetch(`${this.Back_Url}/company/${id}`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                }
-            })
 
-            const result = await req.json();
-            this.setState({ companyInfo: result.Company[0] })
-        } catch (err) {
-            throw new Error(`fetching company with id = ${id} failed with = ${err} `)
-        }
+    OnRecieveCompanyData = (data) => {
+        this.setState({ companyInfo: data.Company[0] });
     }
-    /**
-     * @function getRelatedCompaniesById - get companies depending the id recieved in companyDetails
-     * @param {int} id
-     */
-    getRelatedCompaniesById = async (id) => {
-        try {
-            const req = await fetch(`${this.Back_Url}/companies/type/${id}`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                }
-            })
 
-            const result = await req.json();
-            const shuffledRelatedCompanies = await shuffleCompanies(result.Companies)
-            this.setState({ relatedCompanies: shuffledRelatedCompanies })
-        } catch (err) {
-            throw new Error(`Getting related companies failed with = ${err}`)
-        }
+    OnRecieveRelatedCompanyByType = (data) => {
+        const shuffledRelatedCompanies = shuffleCompanies(data.Companies)
+        this.setState({ relatedCompanies: shuffledRelatedCompanies })
     }
+
 
     render() {
         const { companyInfo, relatedCompanies } = this.state
@@ -115,7 +85,7 @@ class CompanyDetails extends React.Component {
                             <a className="button-container" href={companyInfo.CompanyWebLink} target="_blank" rel="noopener noreferrer" >
                                 <span className="text-btn">
                                     Visit Website
-                            </span>
+                                </span>
                             </a>
                             :
                             null
