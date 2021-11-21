@@ -26,8 +26,6 @@ class App extends React.Component {
       TypeData: ""
     };
   }
-  // storing backend Url in readable variable
-  // Back_Url = process.env.REACT_APP_BEVY_API;
 
   componentDidMount = async () => {
     GetCompanyData(this.OnRecieveCompanyData);
@@ -40,7 +38,7 @@ class App extends React.Component {
   }
 
   OnRecieveCompanyTypes = data => {
-    const shuffledData = await shuffleCompanies(data.CompanyTypes);
+    const shuffledData = shuffleCompanies(data.CompanyTypes);
     this.setState({ CompanyTypes: shuffledData });
   }
 
