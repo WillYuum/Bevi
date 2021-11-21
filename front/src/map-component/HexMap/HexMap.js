@@ -1,6 +1,7 @@
 import React from "react";
 
 import { checkColSize } from "../../utils/checkColSize.js";
+import { GetCompaniesTypeById } from "../../BackEndController/BackendAPI.js";
 
 //----------------IMPORT COMPONENTS------------------
 import HexCard from "../../components/HexCard/HexCard.js";
@@ -26,35 +27,32 @@ class HexMap extends React.Component {
   }
 
   // storing backend Url in readable variable
-  Back_Url = process.env.REACT_APP_BEVY_API;
+  // Back_Url = process.env.REACT_APP_BEVY_API;
 
   componentDidMount() {
     const { ...props } = this.props;
     if (props.TypeId) {
-      this.getCompaniesByType(props.TypeId);
+      GetCompaniesTypeById(props.TypeId, this.OnRecieveCompanyTypeData);
     } else {
       const { CompanyData } = this.props;
-      return this.setState({filterCompanies: CompanyData});
+      return this.setState({ filterCompanies: CompanyData });
     }
   }
 
   async componentWillReceiveProps(props) {
     if (props.filterCompaniesId) {
-      await this.getCompaniesByType(props.filterCompaniesId)
+      await GetCompaniesTypeById(props.filterCompaniesId, this.OnRecieveCompanyTypeData)
     } else {
       return;
     }
   }
 
-  getCompaniesByType = async id => {
-    try {
-      const req = await fetch(`${this.Back_Url}/companies/type/${id}`);
-      const res = await req.json();
-      this.setState({ filteredCompanies: res.Companies });
-    } catch (err) {
-      throw new Error(`getting company Data with ${err}`);
-    }
-  };
+
+  OnRecieveCompanyTypeData = data => {
+    this.setState({ filteredCompanies: data.Companies });
+  }
+
+
 
   render() {
     const { CompanyData } = this.props;

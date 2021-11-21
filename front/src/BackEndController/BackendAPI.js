@@ -9,8 +9,14 @@ function GetCompanyTypes(cb) {
     CallReadAPI('/companies/types', cb);
 }
 
+
+function GetCompaniesTypeById(id, cb) {
+    CallReadAPI(`/companies/type/${id}`, cb);
+}
+
 export {
     GetCompanyData,
-    GetCompanyTypes
+    GetCompanyTypes,
+    GetCompaniesTypeById
 };
 
