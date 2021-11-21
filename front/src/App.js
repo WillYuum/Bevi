@@ -3,6 +3,7 @@ import React from "react";
 import { Route, withRouter } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
 import { shuffleCompanies } from "./utils/shuffleCompanies";
+import { GetCompanyData, GetCompanyTypes } from "./BackEndController/BackendAPI.js";
 
 //----------------IMPORT COMPONENTS------------------
 import NavBar from "./components/NavBar/NavBar.js";
@@ -11,6 +12,7 @@ import CompaniesPage from "./pages/CompaniesPage/CompaniesPage.js";
 import CompanyDetails from "./pages/CompanyDetails/CompanyDetails.js";
 import NotFoundPage from "./pages/404Page/NotFoundPage.js"
 //----------------IMPORT COMPONENTS------------------
+
 
 import "./App.scss";
 
@@ -25,49 +27,23 @@ class App extends React.Component {
     };
   }
   // storing backend Url in readable variable
-  Back_Url = process.env.REACT_APP_BEVY_API;
+  // Back_Url = process.env.REACT_APP_BEVY_API;
 
   componentDidMount = async () => {
-    await this.getCompanyData();
-    await this.getCompanyTypes();
+    GetCompanyData(this.OnRecieveCompanyData);
+    GetCompanyTypes(this.OnRecieveCompanyTypes);
   };
 
-  /**
-   * @function getCompanyData - fetches all Company Data From DB
-   */
-  getCompanyData = async () => {
-    try {
-      const req = await fetch(`${this.Back_Url}/companies`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      });
-      const res = await req.json();
-      const shuffledData = await shuffleCompanies(res.Companies);
-      this.setState({ CompanyData: shuffledData });
-    } catch (err) {
-      throw new Error(`Failed to fetch company Data with = ${err}`);
-    }
-  };
+  OnRecieveCompanyData = (data) => {
+    const shuffledData = shuffleCompanies(data.Companies);
+    this.setState({ CompanyData: shuffledData });
+  }
 
-  getCompanyTypes = async () => {
-    try {
-      const req = await fetch(`${this.Back_Url}/companies/types`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      });
-      const res = await req.json();
-      const shuffledData = await shuffleCompanies(res.CompanyTypes);
-      this.setState({ CompanyTypes: shuffledData });
-    } catch (err) {
-      throw new Error(`Failed to fetch company Types Data with = ${err}`);
-    }
-  };
+  OnRecieveCompanyTypes = data => {
+    const shuffledData = await shuffleCompanies(data.CompanyTypes);
+    this.setState({ CompanyTypes: shuffledData });
+  }
+
 
   render() {
     const { CompanyData, CompanyTypes } = this.state;
